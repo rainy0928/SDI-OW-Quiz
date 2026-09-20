@@ -6,145 +6,183 @@
 <title>SDI 开放水域题库</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 
-  --ground:#e7ebec;
-  --surface:#ffffff;
-  --surface-2:#f3f6f6;
-  --ink:#0e2029;
-  --ink-2:#5a7079;
-  --ink-3:#8b9ca2;
-  --line:#ccd6d9;
-  --line-soft:#e1e8e9;
-  --flag:#c62c22;
-  --deep:#0f4c5c;
-  --deep-soft:#e2f0f1;
-  --flag-soft:#fbe7e5;
-  --shadow:0 1px 0 rgba(14,32,41,.05);
+  --bg:#eef1f2;
+  --bg-deep:#e3e9ea;
+  --panel:#ffffff;
+  --ink:#132128;
+  --ink-2:#56696f;
+  --ink-3:#93a3a8;
+  --hair:#e6ebec;
+  --hair-2:#f0f4f4;
+  --flag:#c0362c;
+  --deep:#0e6b73;
+  --deep-tint:#eff7f7;
+  --flag-tint:#fdf1ef;
+  --shadow:0 1px 2px rgba(19,33,40,.04), 0 12px 28px -16px rgba(19,33,40,.14);
+  --bar:rgba(238,241,242,.82);
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ground:#091720;--surface:#10242d;--surface-2:#16303a;
-    --ink:#e2ebec;--ink-2:#93a9b0;--ink-3:#6d858d;
-    --line:#22414c;--line-soft:#1a343e;
-    --flag:#e2544a;--deep:#4fb3bf;--deep-soft:#11363d;--flag-soft:#361c1c;
-    --shadow:none;
+    --bg:#0a1418;--bg-deep:#070f13;--panel:#101f25;
+    --ink:#e6ecec;--ink-2:#94a5aa;--ink-3:#6b7d83;
+    --hair:#1d2d33;--hair-2:#17262b;
+    --flag:#dd5b4f;--deep:#45aeb4;--deep-tint:#0f2a2c;--flag-tint:#2a1614;
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+    --bar:rgba(10,20,24,.82);
   }
 }
 :root[data-theme="dark"]{
-  --ground:#091720;--surface:#10242d;--surface-2:#16303a;
-  --ink:#e2ebec;--ink-2:#93a9b0;--ink-3:#6d858d;
-  --line:#22414c;--line-soft:#1a343e;
-  --flag:#e2544a;--deep:#4fb3bf;--deep-soft:#11363d;--flag-soft:#361c1c;
-  --shadow:none;
+  --bg:#0a1418;--bg-deep:#070f13;--panel:#101f25;
+  --ink:#e6ecec;--ink-2:#94a5aa;--ink-3:#6b7d83;
+  --hair:#1d2d33;--hair-2:#17262b;
+  --flag:#dd5b4f;--deep:#45aeb4;--deep-tint:#0f2a2c;--flag-tint:#2a1614;
+  --shadow:0 1px 2px rgba(0,0,0,.3);
+  --bar:rgba(10,20,24,.82);
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4.5rem);-webkit-text-size-adjust:100%}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 5rem);-webkit-text-size-adjust:100%}
 body{
-  margin:0;background:var(--ground);color:var(--ink);
+  margin:0;min-height:100%;
+  background:var(--bg);
+  background-image:linear-gradient(180deg,var(--bg) 0%,var(--bg) 40%,var(--bg-deep) 100%);
+  background-attachment:fixed;
+  color:var(--ink);
   font-family:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
-  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
 }
-.num{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
-:focus-visible{outline:2px solid var(--flag);outline-offset:2px;border-radius:2px}
+.num{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0}
+:focus-visible{outline:1.5px solid var(--flag);outline-offset:3px;border-radius:3px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--ground);border-bottom:1px solid var(--line)}
-.bar-in{max-width:46rem;margin:0 auto;padding:.7rem 1.1rem .55rem}
-.brand{display:flex;align-items:center;gap:.6rem}
-.flagmark{width:1.55rem;height:1.15rem;flex:none;border-radius:2px;
-  background:linear-gradient(105deg,var(--flag) 0 38%,#fff 38% 57%,var(--flag) 57% 100%);
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
-.brand h1{margin:0;font-size:.98rem;font-weight:600;letter-spacing:.01em}
-.brand span{color:var(--ink-2);font-weight:400}
-.tabs{display:flex;gap:.3rem;margin-top:.6rem}
-.tab{flex:1;padding:.42rem .3rem;border-radius:5px;font-size:.88rem;color:var(--ink-2);border:1px solid transparent;text-align:center}
-.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--line);font-weight:600}
-.tab b{font-family:Archivo,sans-serif;font-weight:600;color:var(--flag);margin-left:.18rem}
+.flagmark{
+  width:1.5rem;height:1.1rem;flex:none;border-radius:1.5px;
+  background:linear-gradient(107deg,var(--flag) 0 37%,#fff 37% 58%,var(--flag) 58% 100%);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.09);
+}
 
-main{max-width:46rem;margin:0 auto;padding:1.1rem 1.1rem 5rem}
+/* 顶栏 */
+.bar{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+  background:var(--bar);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--hair);
+}
+.bar-in{max-width:44rem;margin:0 auto;padding:.85rem 1.3rem 0}
+.brand{display:flex;align-items:center;gap:.7rem}
+.brand h1{margin:0;font-size:.92rem;font-weight:500;letter-spacing:.02em}
+.brand h1 i{font-style:normal;color:var(--ink-3);font-weight:400}
+.tabs{display:flex;gap:1.5rem;margin-top:.75rem}
+.tab{padding:.1rem 0 .6rem;font-size:.88rem;color:var(--ink-3);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--flag);font-weight:500}
+.tab b{font-family:Archivo,sans-serif;font-weight:500;color:var(--flag);margin-left:.25rem;font-size:.78rem}
 
-.chapline{display:flex;align-items:baseline;gap:.55rem;margin:0 0 1rem;padding-bottom:.75rem;border-bottom:1px solid var(--line)}
-.chapline .ch{font-family:Archivo,sans-serif;font-size:1.45rem;font-weight:700;color:var(--flag);line-height:1}
-.chapline .tt{font-size:1.02rem;font-weight:600}
-.chapline .ct{margin-left:auto;font-size:.82rem;color:var(--ink-3);white-space:nowrap}
+main{max-width:44rem;margin:0 auto;padding:1.8rem 1.3rem 4rem}
 
-.rowtools{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
-.chip{padding:.3rem .7rem;border:1px solid var(--line);border-radius:999px;font-size:.82rem;color:var(--ink-2);background:var(--surface)}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
-.hint{font-size:.82rem;color:var(--ink-3);margin:0 0 1rem}
+/* 章节头 */
+.hero{margin:0 0 1.5rem}
+.hero-row{display:flex;align-items:flex-end;gap:.75rem}
+.hero .no{font-family:Archivo,sans-serif;font-size:2.6rem;font-weight:600;color:var(--flag);line-height:.85;letter-spacing:-.04em}
+.hero .tt{font-size:1.02rem;font-weight:500;padding-bottom:.1rem}
+.hero .ct{margin-left:auto;font-size:.78rem;color:var(--ink-3);white-space:nowrap;padding-bottom:.2rem}
+.ticks{position:relative;height:11px;margin-top:1rem}
+.ticks::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--hair)}
+.ticks::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;
+  background:repeating-linear-gradient(to right,var(--hair) 0 1px,transparent 1px 10px)}
 
-.q{background:var(--surface);border:1px solid var(--line-soft);border-radius:7px;
-  padding:.95rem 1rem 1rem;margin-bottom:.7rem;box-shadow:var(--shadow);
-  display:grid;grid-template-columns:2.1rem 1fr;column-gap:.6rem}
-.q-n{font-family:Archivo,sans-serif;font-weight:700;font-size:1.15rem;color:var(--ink-3);line-height:1.45;padding-top:.05rem}
+/* 选择条 */
+.pills{display:flex;gap:.45rem;flex-wrap:wrap}
+.pill{padding:.32rem .85rem;border:1px solid var(--hair);border-radius:999px;font-size:.82rem;
+  color:var(--ink-2);background:var(--panel);transition:all .15s;box-shadow:0 1px 1px rgba(19,33,40,.03)}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.pill[disabled]{opacity:.4;cursor:default}
+.pill .n{font-family:Archivo,sans-serif;opacity:.65;margin-left:.15rem}
+.lab{font-size:.74rem;color:var(--ink-3);margin:0 0 .5rem;letter-spacing:.06em}
+.hint{font-size:.8rem;color:var(--ink-3);margin:1.1rem 0 0;line-height:1.7}
+.field{margin-bottom:1.5rem}
+
+/* 白纸 */
+.sheet{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);padding:0 1.4rem;margin-top:1.3rem}
+.q{display:grid;grid-template-columns:2rem 1fr;column-gap:.5rem;padding:1.5rem 0;border-top:1px solid var(--hair-2)}
+.q:first-child{border-top:none}
+.q-n{font-family:Archivo,sans-serif;font-weight:600;font-size:.8rem;color:var(--ink-3);padding-top:.32rem}
 .q-body{min-width:0}
-.q-text{margin:0 0 .7rem;font-weight:600;line-height:1.6}
-.opts{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
-.opt{display:grid;grid-template-columns:1.25rem 1fr;gap:.45rem;align-items:start;
-  padding:.34rem .5rem .34rem .35rem;border-radius:5px;border-left:3px solid transparent;
-  font-size:.95rem;color:var(--ink-2);line-height:1.55}
-.opt .k{font-family:Archivo,sans-serif;font-weight:600;color:var(--ink-3)}
-.opt.is-right{background:var(--deep-soft);border-left-color:var(--deep);color:var(--ink)}
+.q-text{margin:0 0 .9rem;font-weight:500;line-height:1.65}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:.18rem}
+.opt{display:grid;grid-template-columns:1.1rem 1fr;gap:.45rem;align-items:start;
+  padding:.35rem .7rem;border-radius:7px;border-left:2px solid transparent;
+  font-size:.93rem;color:var(--ink-2);line-height:1.6}
+.opt .k{font-family:Archivo,sans-serif;font-weight:500;color:var(--ink-3);font-size:.82rem;padding-top:.13rem}
+.opt.is-right{background:var(--deep-tint);border-left-color:var(--deep);color:var(--ink)}
 .opt.is-right .k{color:var(--deep)}
-.opt.is-wrong{background:var(--flag-soft);border-left-color:var(--flag);color:var(--ink)}
+.opt.is-wrong{background:var(--flag-tint);border-left-color:var(--flag);color:var(--ink)}
 .opt.is-wrong .k{color:var(--flag)}
-.note{margin:.7rem 0 0;padding:.5rem .7rem;border-radius:5px;background:var(--surface-2);
-  font-size:.86rem;color:var(--ink-2);line-height:1.6}
-.reveal{margin-top:.55rem;font-size:.84rem;color:var(--deep);border-bottom:1px solid currentColor;padding-bottom:1px}
-.meta{margin-top:.6rem;font-size:.8rem;color:var(--ink-3);display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
-.meta button{font-size:.8rem;color:var(--ink-3);border-bottom:1px solid var(--line)}
+.note{margin:1rem 0 0;padding:.65rem .85rem;border-radius:8px;background:var(--hair-2);
+  font-size:.84rem;color:var(--ink-2);line-height:1.75}
+.reveal{margin-top:.8rem;font-size:.82rem;color:var(--deep);border-bottom:1px solid currentColor;padding-bottom:1px}
+.meta{margin-top:.85rem;font-size:.78rem;color:var(--ink-3);display:flex;gap:.9rem;align-items:center;flex-wrap:wrap}
+.meta button{font-size:.78rem;color:var(--ink-3);border-bottom:1px solid var(--hair)}
 
-.btn{display:inline-block;padding:.6rem 1.15rem;border-radius:6px;font-size:.95rem;font-weight:600;
-  background:var(--ink);color:var(--ground);text-align:center}
-.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:500}
-.btn.flag{background:var(--flag);color:#fff}
-.btn[disabled]{opacity:.35;cursor:default}
-.btns{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.1rem}
+/* 按钮 */
+.btn{display:inline-block;padding:.62rem 1.35rem;border-radius:8px;font-size:.9rem;font-weight:500;
+  background:var(--ink);color:var(--panel);text-align:center;transition:opacity .15s}
+.btn.ghost{background:var(--panel);color:var(--ink-2);border:1px solid var(--hair);font-weight:400;
+  box-shadow:0 1px 1px rgba(19,33,40,.03)}
+.btn.flag{background:var(--flag);color:#fff;box-shadow:0 4px 14px -6px rgba(192,54,44,.6)}
+.btn[disabled]{opacity:.35;cursor:default;box-shadow:none}
+.btns{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.7rem}
 
-.panel{background:var(--surface);border:1px solid var(--line-soft);border-radius:7px;padding:1.1rem;box-shadow:var(--shadow)}
-.panel h2{margin:0 0 .2rem;font-size:1.02rem}
-.panel p{margin:0 0 1rem;font-size:.87rem;color:var(--ink-2)}
-.field{margin-bottom:.9rem}
-.field .lab{font-size:.82rem;color:var(--ink-3);margin-bottom:.35rem}
-.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.seg button{flex:1;padding:.45rem .3rem;font-size:.88rem;color:var(--ink-2);line-height:1.4}
-.seg button+button{border-left:1px solid var(--line)}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground);font-weight:600}
-.seg button[disabled]{opacity:.35;cursor:default}
-.seg .sub{display:block;font-size:.72rem;opacity:.7;font-weight:400}
-
-.gauge{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
-.gauge .pos{font-family:Archivo,sans-serif;font-weight:700;font-size:.95rem;white-space:nowrap}
-.gauge .pos i{font-style:normal;color:var(--ink-3);font-weight:500}
-.track{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
-.track i{display:block;height:100%;background:var(--flag);transition:width .25s ease}
-.pick{display:grid;grid-template-columns:1.6rem 1fr;gap:.5rem;align-items:start;width:100%;
-  text-align:left;padding:.65rem .75rem;margin-bottom:.4rem;border-radius:6px;
-  border:1px solid var(--line);background:var(--surface);font-size:.97rem;line-height:1.55}
-.pick .k{font-family:Archivo,sans-serif;font-weight:600;color:var(--ink-3)}
-.pick[aria-pressed="true"]{border-color:var(--ink);background:var(--surface-2)}
+/* 刷题 */
+.gauge{display:flex;align-items:center;gap:.85rem;margin-bottom:1.6rem}
+.gauge .pos{font-family:Archivo,sans-serif;font-weight:600;font-size:.85rem;white-space:nowrap}
+.gauge .pos i{font-style:normal;color:var(--ink-3);font-weight:400}
+.track{flex:1;height:2px;background:var(--hair);border-radius:2px;overflow:hidden}
+.track i{display:block;height:2px;background:var(--flag);border-radius:2px;transition:width .3s ease}
+.runbox{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);padding:1.4rem}
+.runq{font-size:1.05rem;font-weight:500;line-height:1.65;margin:0 0 1.3rem}
+.runq .rn{font-family:Archivo,sans-serif;color:var(--ink-3);font-size:.82rem;margin-right:.55rem}
+.pick{display:grid;grid-template-columns:1.35rem 1fr;gap:.5rem;align-items:start;width:100%;
+  text-align:left;padding:.72rem .9rem;margin-bottom:.45rem;border-radius:9px;
+  border:1px solid var(--hair);background:var(--panel);font-size:.95rem;line-height:1.6;
+  color:var(--ink-2);transition:all .12s}
+.pick:last-of-type{margin-bottom:0}
+.pick .k{font-family:Archivo,sans-serif;font-weight:500;color:var(--ink-3);font-size:.82rem;padding-top:.13rem}
+.pick[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);background:var(--hair-2)}
 .pick[aria-pressed="true"] .k{color:var(--flag)}
-.navrow{display:flex;gap:.55rem;margin-top:1.2rem}
+.navrow{display:flex;gap:.6rem;margin-top:1.6rem}
 .navrow .btn{flex:1}
 
-.score{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.2rem}
-.score .big{font-family:Archivo,sans-serif;font-size:3.1rem;font-weight:700;line-height:1;color:var(--flag)}
-.score .of{font-size:.9rem;color:var(--ink-2)}
-.verdict{font-size:.88rem;color:var(--ink-2);margin:.5rem 0 0}
+/* 成绩 */
+.result{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);padding:1.6rem;
+  display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap}
+.ring{position:relative;width:112px;height:112px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:Archivo,sans-serif;font-weight:600;font-size:1.9rem;color:var(--ink);letter-spacing:-.03em}
+.ring .val sub{font-size:.72rem;font-weight:500;color:var(--ink-3);vertical-align:.4em;margin-left:.1rem}
+.rtext{flex:1;min-width:11rem}
+.rtext .cnt{font-family:Archivo,sans-serif;font-size:.85rem;color:var(--ink-3);margin:0}
+.rtext .verdict{font-size:.92rem;color:var(--ink-2);margin:.4rem 0 0;line-height:1.7}
+.recent{font-size:.8rem;color:var(--ink-3);display:flex;gap:1rem;margin:.35rem 0}
+.recent .n{font-family:Archivo,sans-serif;color:var(--ink-2)}
 
-.empty{text-align:center;padding:2.6rem 1rem;color:var(--ink-2);font-size:.92rem}
-.empty .fm{width:2.4rem;height:1.8rem;margin:0 auto 1rem;border-radius:3px;opacity:.5;
-  background:linear-gradient(105deg,var(--flag) 0 38%,#fff 38% 57%,var(--flag) 57% 100%)}
-.sec-h{font-size:.85rem;color:var(--ink-3);margin:1.6rem 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid var(--line-soft)}
-.foot{margin-top:2.2rem;font-size:.78rem;color:var(--ink-3);line-height:1.7;border-top:1px solid var(--line);padding-top:.9rem}
-.sync{margin-top:.4rem}
+.empty{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);
+  padding:3.2rem 1.5rem;text-align:center;color:var(--ink-3);font-size:.9rem;line-height:1.9}
+.sec{font-size:.78rem;color:var(--ink-3);margin:2.4rem 0 0;letter-spacing:.06em}
+
+/* 署名 */
+.sign{margin-top:4rem;border-top:1px solid var(--hair);text-align:center}
+.sign .flagmark{margin:-.55rem auto 1.3rem;box-shadow:inset 0 0 0 1px rgba(0,0,0,.09),0 0 0 .55rem var(--bg-deep)}
+.slogan{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:1.3rem;
+  color:var(--deep);margin:0;letter-spacing:.01em}
+.by{font-size:.74rem;color:var(--ink-3);margin:.5rem 0 0;letter-spacing:.08em}
+.fine{font-size:.71rem;color:var(--ink-3);line-height:1.7;margin:2rem 0 0;text-align:left;opacity:.85}
 </style>
 </head>
 <body>
@@ -153,7 +191,7 @@ main{max-width:46rem;margin:0 auto;padding:1.1rem 1.1rem 5rem}
   <div class="bar-in">
     <div class="brand">
       <div class="flagmark" aria-hidden="true"></div>
-      <h1>SDI 开放水域 <span>理论题库</span></h1>
+      <h1>SDI 开放水域 <i>理论题库</i></h1>
     </div>
     <nav class="tabs" role="tablist">
       <button class="tab" role="tab" data-tab="study" aria-selected="true">背题</button>
@@ -220,7 +258,7 @@ const CHAPTERS = [{
      note:"潜水证是 SDI、PADI 这类民间培训机构发的，不是政府颁发。"}
   ]
 },{
-  id:"ch2", no:"02", short:"第二章", title:"潜水物理学·生理学",
+  id:"ch2", no:"02", short:"第二章", title:"潜水物理学 · 生理学",
   questions:[
     {q:"在海水 20 米深处，绝对压是多少个大气压？",
      o:["1 个大气压","2 个大气压","3 个大气压","4 个大气压"],a:2,
@@ -283,6 +321,70 @@ const CHAPTERS = [{
      o:["结束潜水并上升后休息","快速反复地呼吸","深深地、慢慢地呼吸","停止行动，抓住固定物体休息"],a:0,
      note:"头痛头晕恶心疲劳，多半是二氧化碳蓄积或气体污染。正确做法是结束这一潜、按规定速度上升、到水面呼吸新鲜空气休息。"}
   ]
+},{
+  id:"ch3", no:"03", short:"第三章", title:"潜水装备",
+  questions:[
+    {q:"使用呼吸管（snorkel）的主要目的是什么？",
+     o:["为了在水下调节浮力","为了确认潜水的水深","在水面上不用抬头就能呼吸","为了和同伴共用空气"],a:2,
+     note:"呼吸管是水面用的：趴着脸朝下也能换气，省下气瓶里的气。跟水下呼吸没关系。"},
+    {q:"如何判断面镜是否贴合脸部？",
+     o:["把面镜放在脸上，用鼻子吸气试试","在面镜里装上水，贴合脸部试试看","把面镜放在脸上，鼻托高度合适就行","把面镜按在脸上用力压紧试试"],a:0,
+     note:"不套头带，把面镜扣在脸上用鼻子轻吸，能自己吸住不掉就是贴合。买面镜时的标准动作。"},
+    {q:"下列不属于水面信号工具的是？",
+     o:["潜水 sausage","水上号角","潜水写字板","水面信号浮标（SMB）"],a:2,
+     note:"写字板是水下跟潜伴沟通用的，不是朝水面或船只发信号的。"},
+    {q:"下列对脚蹼特性的描述不恰当的是？",
+     o:["脚蹼能增加潜水者的推进力","鞋式脚蹼（full foot）配有调节带","带式脚蹼可以调节到与脚的尺寸完全贴合","排水孔能让鞋内的水轻松排出"],a:1,
+     note:"鞋式（full foot）是整只脚套进去的，没有调节带；带式（open heel）才有调节带，配潜水靴穿。"},
+    {q:"下列对湿衣和干衣的描述不恰当的是？",
+     o:["湿衣主要由发泡氯丁橡胶制成","湿衣通过最大限度减少与皮肤接触的水的流动，从而起到保护体温的作用","干衣能防止水渗入潜水服内部","湿衣会在潜水服与皮肤之间形成空气层"],a:3,
+     note:"形成空气层保暖的是干衣。湿衣是让薄薄一层水留在衣服和皮肤之间，被体温焐热，靠减少水的流动来保温。"},
+    {q:"穿着湿衣或干衣时，不能额外增加保暖效果的是？",
+     o:["脚踝配重","潜水帽","潜水手套","潜水背心"],a:0,
+     note:"脚踝配重是用来调整水下姿态、压住脚的，跟保暖无关。头套、手套、背心才是加保暖的。"},
+    {q:"下列不属于潜水服正确保养方法的是？",
+     o:["使用后必须用清水冲洗","清洁后，内部和外部都必须晾干","要在阳光不直接照射的阴凉处晾干","存放时要折叠起来存放"],a:3,
+     note:"潜水服要挂起来晾、挂起来存。折叠会压出死折痕，把发泡橡胶压坏。"},
+    {q:"下列不属于潜水电脑（dive computer）通常显示的信息的是？",
+     o:["潜水时间","当前潜水深度","潜水日志","潜伴的潜水时间"],a:3,
+     note:"电脑表只管自己：时间、深度、NDL、上升速度、日志。看不到潜伴的数据。"},
+    {q:"潜水电脑上显示的最大潜水深度（maximum depth）是什么意思？",
+     o:["潜水过程中到达的最大水深","一天中到达的最大水深","使用潜水电脑后到达的最大水深","一同潜水的同伴中到达的最大水深"],a:0,
+     note:"就是这一潜里到过的最深点。即使后来升到 5 米，这个数字也不会往回跳。"},
+    {q:"免减压极限时间（NDL）是什么意思？",
+     o:["上升水面后的休息时间","患上减压病后上升到水面的时间","不考虑减压病因素的情况下，可以进行的最长潜水时间","患上减压病后到开始上升为止的经过时间"],a:2,
+     note:"No Decompression Limit：在这个时间内直接上升不需要做减压停留。越深，NDL 越短。"},
+    {q:"下列不属于潜水电脑发出警报的项目是？",
+     o:["超过免减压极限","上升速度过快","忽略减压停留","下潜速度过快"],a:3,
+     note:"电脑表的警报都是冲着上升和减压风险去的。下潜快本身不触发警报（但会压耳朵）。"},
+    {q:"下列对残压表（SPG）的描述不恰当的是？",
+     o:["水下残压表有波登管式和数字式等类型","水下残压表由中压驱动工作","连接到一级头上标有 HP 的接口","水下残压表显示气瓶内剩余的空气压力"],a:1,
+     note:"残压表接的是一级头上的 HP（高压）口，由高压直接驱动。中压（LP）驱动的是二级头和 BCD 充气管。"},
+    {q:"下列对配重系统的描述不恰当的是？",
+     o:["用于抵消正浮力，从而形成中性浮力","有两种类型，分别是配重带形式和整合了配重功能的浮力控制装置形式","配有搭扣，以便在紧急情况下能轻松脱下","在淡水中比在海水中需要佩戴稍多的配重"],a:3,
+     note:"海水密度大、浮力大，要多带配重；淡水浮力小，配重要减少。这一项正好说反了。"},
+    {q:"下列对水下手电筒的描述不恰当的是？",
+     o:["水下手电筒不仅在夜间使用，白天也会用到","它能在水下还原自然的色彩","夜间潜水时不使用备用手电筒","为了手电筒内部的防水，会使用 O 型圈（O ring）"],a:2,
+     note:"夜潜必须带备用手电。主灯一灭，水下就彻底黑了。白天用手电是为了把被水吃掉的红色补回来。"},
+    {q:"下列对潜水旗（dive flags）的描述不恰当的是？",
+     o:["潜水旗并非必须使用","它是红色的长方形，上面有白色的对角线","向过往船只表明水下有潜水者","在海岸边，可以把潜水旗系在浮标上"],a:0,
+     note:"潜水旗是必须挂的，多数地区还有法规要求。它的作用就是告诉过往船只——下面有人。"},
+    {q:"关于水下呼吸器（scuba regulator）的恰当描述是？",
+     o:["呼吸器无论水深如何，始终以 10bar 的压力供应空气","呼吸器在二级头转换为中压","可以在呼吸器二级头上连接备用二级头、残压表等","备用气源的常见形式是「备用二级头」"],a:3,
+     note:"备用气源最常见的就是挂胸前的备用二级头（章鱼）。另外记：一级头把高压转中压，二级头再转到环境压力；残压表接的是一级头，不是二级头。"},
+    {q:"气瓶的目视检查（visually inspected）周期是？",
+     o:["1 年","2 年","3 年","4 年"],a:0,
+     note:"目视检查（VIP）一年一次；水压测试（hydrostatic test）通常五年一次。两个别记混。"},
+    {q:"下列不属于指北针（compass）组成部分的是？",
+     o:["指北针","万向线（lubber line）","安全爆破片","旋转刻度盘（bezel）"],a:2,
+     note:"安全爆破片是气瓶阀上的泄压装置，跟指北针没关系。"},
+    {q:"下列对浮力控制装置（BC 或 BCD）的描述不恰当的是？",
+     o:["最常见的类型是背装式","可以利用充气阀调节浮力","可以用嘴往里吹气","潜水结束后，要往内部注水进行清洁"],a:0,
+     note:"最常见的是夹克式（jacket）；背装式（back inflate）是另一种。潜后往气囊里灌清水涮一涮再倒干净，是正确保养。"},
+    {q:"下列设备中，通常不会安装在控制台上的是？",
+     o:["指北针","潜水电脑","残压表","水面信号浮标"],a:3,
+     note:"控制台（console）上挂的是仪表：残压表、电脑表、指北针。SMB 是收在口袋或挂在 BCD 上的。"}
+  ]
 }];
 
 CHAPTERS.forEach(c=>c.questions.forEach((q,i)=>{q.id=c.id+"-"+(i+1);q.n=i+1;q.chap=c.id;}));
@@ -291,7 +393,7 @@ const byId = id => ALL.find(q=>q.id===id);
 const chapById = id => CHAPTERS.find(c=>c.id===id);
 const KEYS = ["a","b","c","d","e"];
 
-/* ================= 进度存储 ================= */
+/* ================= 进度 ================= */
 const LS = "sdi-ow-progress-v1";
 const progress = {wrong:{}, attempts:[]};
 let dbDoc = null, dbReady = false;
@@ -346,22 +448,14 @@ async function initSync(){
 const state = {tab:"study", chap:"ch1", showAnswers:true, revealed:{}, exam:null, scope:"ch1", shuffle:false};
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const wrongIds = () => ALL.filter(q=>progress.wrong[q.id]>0).map(q=>q.id);
-
-/* ================= 渲染 ================= */
 const view = document.getElementById("view");
 
-function chapSeg(current, attr){
-  let h = '<div class="seg" style="margin-bottom:1rem">';
-  CHAPTERS.forEach(c=>{
-    h += '<button data-'+attr+'="'+c.id+'" aria-pressed="'+(current===c.id?"true":"false")+'">'+
-      esc(c.short)+'<span class="sub">'+esc(c.title)+'</span></button>';
-  });
-  return h+'</div>';
-}
-
-function chapLine(c, extra){
-  return '<div class="chapline"><span class="ch num">'+c.no+'</span><span class="tt">'+esc(c.title)+
-    '</span><span class="ct num">'+(extra||(c.questions.length+" 题"))+'</span></div>';
+/* ================= 片段 ================= */
+function hero(c, extra){
+  return '<div class="hero"><div class="hero-row"><span class="no num">'+c.no+'</span>'+
+    '<span class="tt">'+esc(c.title)+'</span>'+
+    '<span class="ct num">'+(extra||(c.questions.length+" 题"))+'</span></div>'+
+    '<div class="ticks" aria-hidden="true"></div></div>';
 }
 
 function questionCard(q, opts){
@@ -372,37 +466,43 @@ function questionCard(q, opts){
     let cls = "";
     if(show && i===q.a) cls = "is-right";
     if(show && opts.picked!=null && i===opts.picked && i!==q.a) cls = "is-wrong";
-    lis += '<li class="opt '+cls+'"><span class="k num">'+KEYS[i]+'</span><span>'+esc(q.o[i])+'</span></li>';
+    lis += '<li class="opt '+cls+'"><span class="k">'+KEYS[i]+'</span><span>'+esc(q.o[i])+'</span></li>';
   }
   let tail = show ? '<p class="note">'+esc(q.note)+'</p>'
                   : '<button class="reveal" data-reveal="'+q.id+'">看答案</button>';
   let meta = opts.meta || "";
   if(opts.chapLabel) meta = '<span>'+esc(chapById(q.chap).short)+'</span>' + meta;
   if(meta) tail += '<div class="meta">'+meta+'</div>';
-  return '<article class="q"><div class="q-n num">'+q.n+'</div><div class="q-body">'+
+  return '<article class="q"><div class="q-n">'+q.n+'</div><div class="q-body">'+
     '<p class="q-text">'+esc(q.q)+'</p><ul class="opts">'+lis+'</ul>'+tail+'</div></article>';
+}
+
+function foot(){
+  return '<div class="sign"><div class="flagmark" aria-hidden="true"></div>'+
+    '<p class="slogan">Safety first &amp; have fun</p>'+
+    '<p class="by">Rainy 出品</p>'+
+    '<p class="fine">题目来自 SDI 开放水域潜水员线上课程各章练习题。部分选项在截图里被播放器浮层挡住，是按上下文补全的：'+
+    '第一章 3 / 6 / 9 / 15 题，第二章 6 / 9 / 12 题，第三章 3 / 6 / 15 题。'+
+    (dbReady?"进度已同步，换设备打开也在。":"进度存在这台设备的浏览器里。")+'</p></div>';
 }
 
 /* ---------- 背题 ---------- */
 function viewStudy(){
   const c = chapById(state.chap) || CHAPTERS[0];
-  let h = chapSeg(c.id, "studychap") + chapLine(c);
-  h += '<div class="rowtools">'+
-    '<button class="chip" data-toggle="answers" aria-pressed="'+(state.showAnswers?"true":"false")+'">'+
-    (state.showAnswers?"答案已显示":"答案已遮住")+'</button>'+
-    '<span class="hint" style="margin:0">'+(state.showAnswers?"关掉可以逐题自测":"点每题下面的「看答案」逐题揭晓")+'</span></div>';
+  let h = '<div class="pills" style="margin-bottom:1.6rem">';
+  CHAPTERS.forEach(x=>{
+    h += '<button class="pill" data-studychap="'+x.id+'" aria-pressed="'+(state.chap===x.id?"true":"false")+'">'+esc(x.short)+'</button>';
+  });
+  h += '</div>' + hero(c);
+  h += '<div class="pills"><button class="pill" data-toggle="answers" aria-pressed="'+(state.showAnswers?"true":"false")+'">'+
+    (state.showAnswers?"答案已显示":"答案已遮住")+'</button></div>';
+  h += '<p class="hint">'+(state.showAnswers?"关掉可以逐题自测。":"点每题下面的「看答案」逐题揭晓。")+'</p>';
+  h += '<div class="sheet">';
   c.questions.forEach(q=>{ h += questionCard(q, {show: state.showAnswers || !!state.revealed[q.id]}); });
-  view.innerHTML = h + foot();
+  view.innerHTML = h + '</div>' + foot();
 }
 
 /* ---------- 刷题 ---------- */
-function viewExam(){
-  const ex = state.exam;
-  if(!ex) return examStart();
-  if(ex.done) return examResult();
-  return examRun();
-}
-
 function scopeIds(scope){
   if(scope==="wrong") return wrongIds();
   if(scope==="all") return ALL.map(q=>q.id);
@@ -416,29 +516,37 @@ function scopeLabel(scope){
   return c ? c.short : "";
 }
 
+function viewExam(){
+  const ex = state.exam;
+  if(!ex) return examStart();
+  if(ex.done) return examResult();
+  return examRun();
+}
+
 function examStart(){
   const wn = wrongIds().length;
   const last = progress.attempts.slice(-3).reverse();
-  let h = '<div class="panel"><h2>开始一轮</h2><p>答完整轮才判分，做错的题会自动进错题本。</p>';
-  h += '<div class="field"><div class="lab">范围</div><div class="seg">';
+  let h = '<div class="field"><p class="lab">范围</p><div class="pills">';
   CHAPTERS.forEach(c=>{
-    h += '<button data-scope="'+c.id+'" aria-pressed="'+(state.scope===c.id?"true":"false")+'">'+
-      esc(c.short)+'<span class="sub">'+c.questions.length+' 题</span></button>';
+    h += '<button class="pill" data-scope="'+c.id+'" aria-pressed="'+(state.scope===c.id?"true":"false")+'">'+
+      esc(c.short)+'<span class="n num">'+c.questions.length+'</span></button>';
   });
-  h += '<button data-scope="all" aria-pressed="'+(state.scope==="all"?"true":"false")+'">全部<span class="sub">'+ALL.length+' 题</span></button>';
+  h += '<button class="pill" data-scope="all" aria-pressed="'+(state.scope==="all"?"true":"false")+'">全部<span class="n num">'+ALL.length+'</span></button>';
   h += '</div></div>';
-  h += '<div class="field"><div class="lab">顺序</div><div class="seg">'+
-    '<button data-shuffle="0" aria-pressed="'+(!state.shuffle?"true":"false")+'">按题号</button>'+
-    '<button data-shuffle="1" aria-pressed="'+(state.shuffle?"true":"false")+'">打乱</button>'+
+  h += '<div class="field"><p class="lab">顺序</p><div class="pills">'+
+    '<button class="pill" data-shuffle="0" aria-pressed="'+(!state.shuffle?"true":"false")+'">按题号</button>'+
+    '<button class="pill" data-shuffle="1" aria-pressed="'+(state.shuffle?"true":"false")+'">打乱</button>'+
     '</div></div>';
+  h += '<p class="hint" style="margin-top:0">答完整轮才判分，做错的题会自动进错题本。</p>';
   h += '<div class="btns"><button class="btn flag" data-start="1">开始答题</button>'+
-    '<button class="btn ghost" data-wrongrun="1"'+(wn?"":" disabled")+'>只练错题 '+wn+'</button></div></div>';
+    '<button class="btn ghost" data-wrongrun="1"'+(wn?"":" disabled")+'>只练错题 '+wn+'</button></div>';
   if(last.length){
-    h += '<div class="sec-h">最近成绩</div>';
+    h += '<p class="sec">最近成绩</p><div style="margin-top:.7rem">';
     last.forEach(a=>{
-      h += '<div class="meta" style="margin:.35rem 0"><span class="num">'+a.correct+" / "+a.total+'</span>'+
+      h += '<div class="recent"><span class="n">'+a.correct+" / "+a.total+'</span>'+
         '<span>'+esc(a.label||"")+'</span><span>'+esc(a.when||"")+'</span></div>';
     });
+    h += '</div>';
   }
   view.innerHTML = h + foot();
 }
@@ -449,14 +557,13 @@ function examRun(){
   const pct = Math.round(ex.idx/ex.ids.length*100);
   let h = '<div class="gauge"><span class="pos">'+(ex.idx+1)+' <i>/ '+ex.ids.length+'</i></span>'+
     '<span class="track"><i style="width:'+pct+'%"></i></span></div>';
-  h += '<article class="q" style="display:block"><p class="q-text" style="font-size:1.05rem">'+
-    '<span class="num" style="color:var(--ink-3);margin-right:.45rem">'+
+  h += '<div class="runbox"><p class="runq"><span class="rn">'+
     (ex.mixed ? esc(chapById(q.chap).short)+" " : "")+q.n+'</span>'+esc(q.q)+'</p>';
   for(let i=0;i<q.o.length;i++){
     h += '<button class="pick" data-pick="'+i+'" aria-pressed="'+(ex.picks[q.id]===i?"true":"false")+'">'+
       '<span class="k">'+KEYS[i]+'</span><span>'+esc(q.o[i])+'</span></button>';
   }
-  h += '</article>';
+  h += '</div>';
   const isLast = ex.idx === ex.ids.length-1;
   const answered = Object.keys(ex.picks).length;
   h += '<div class="navrow">'+
@@ -466,7 +573,7 @@ function examRun(){
       : '<button class="btn" data-nav="1">下一题</button>')+
     '</div>';
   if(isLast && answered<ex.ids.length){
-    h += '<p class="hint" style="margin-top:.7rem">还有 '+(ex.ids.length-answered)+' 题没选，回去补完就能交卷。</p>';
+    h += '<p class="hint">还有 '+(ex.ids.length-answered)+' 题没选，回去补完就能交卷。</p>';
   }
   h += '<div class="btns"><button class="btn ghost" data-quit="1">退出本轮</button></div>';
   view.innerHTML = h;
@@ -477,24 +584,31 @@ function examResult(){
   const wrong = ex.ids.filter(id=>ex.picks[id]!==byId(id).a);
   const correct = ex.ids.length - wrong.length;
   const rate = Math.round(correct/ex.ids.length*100);
+  const C = 326.7, off = (C*(1-rate/100)).toFixed(1);
   let verdict;
   if(rate===100) verdict = "全对。这一轮可以过了。";
   else if(rate>=80) verdict = "达标线附近了，把下面几题的原理弄明白再刷一轮。";
   else verdict = "先回背题模式过一遍，重点看错的那几条原理。";
 
-  let h = '<div class="panel"><div class="score"><span class="big num">'+rate+'</span>'+
-    '<span class="of num">%　'+correct+' / '+ex.ids.length+' 题正确</span></div>'+
-    '<p class="verdict">'+verdict+'</p>'+
+  let h = '<div class="result"><div class="ring">'+
+    '<svg viewBox="0 0 120 120" aria-hidden="true">'+
+    '<circle cx="60" cy="60" r="52" fill="none" stroke="var(--hair)" stroke-width="7"/>'+
+    '<circle cx="60" cy="60" r="52" fill="none" stroke="var(--flag)" stroke-width="7" stroke-linecap="round" '+
+    'stroke-dasharray="'+C+'" stroke-dashoffset="'+off+'"/></svg>'+
+    '<span class="val">'+rate+'<sub>%</sub></span></div>'+
+    '<div class="rtext"><p class="cnt">'+correct+' / '+ex.ids.length+' 题正确</p>'+
+    '<p class="verdict">'+verdict+'</p></div></div>'+
     '<div class="btns"><button class="btn" data-again="same">再刷一轮</button>'+
     (wrong.length?'<button class="btn ghost" data-again="wrong">只练这轮错题</button>':'')+
-    '<button class="btn ghost" data-again="back">返回</button></div></div>';
+    '<button class="btn ghost" data-again="back">返回</button></div>';
   if(wrong.length){
-    h += '<div class="sec-h">这轮做错的 '+wrong.length+' 题</div>';
+    h += '<p class="sec">这轮做错的 '+wrong.length+' 题</p><div class="sheet">';
     wrong.forEach(id=>{
       const q = byId(id);
       h += questionCard(q, {show:true, picked:ex.picks[id], chapLabel:ex.mixed,
         meta:'<span>你选了 '+KEYS[ex.picks[id]]+'，正确答案 '+KEYS[q.a]+'</span>'});
     });
+    h += '</div>';
   }
   view.innerHTML = h + foot();
 }
@@ -503,27 +617,22 @@ function examResult(){
 function viewWrong(){
   const ids = wrongIds();
   if(!ids.length){
-    view.innerHTML = '<div class="empty"><div class="fm"></div>错题本是空的。<br>去刷题模式测一轮，做错的题会自动收进来。</div>'+foot();
+    view.innerHTML = '<p class="empty">错题本是空的。<br>去刷题模式测一轮，做错的题会自动收进来。</p>'+foot();
     return;
   }
-  let h = '<div class="btns" style="margin:0 0 1rem"><button class="btn flag" data-wrongrun="1">只练这些题（'+ids.length+'）</button>'+
-    '<button class="btn ghost" data-clearall="1">清空错题本</button></div>';
+  let h = '<div class="btns" style="margin:0"><button class="btn flag" data-wrongrun="1">只练这些题 '+ids.length+'</button>'+
+    '<button class="btn ghost" data-clearall="1">清空</button></div>';
   CHAPTERS.forEach(c=>{
     const mine = ids.filter(id=>byId(id).chap===c.id);
     if(!mine.length) return;
-    h += '<div class="sec-h">'+esc(c.short)+" "+esc(c.title)+'　'+mine.length+' 题</div>';
+    h += '<p class="sec">'+esc(c.short)+" "+esc(c.title)+'　'+mine.length+' 题</p><div class="sheet">';
     mine.forEach(id=>{
       h += questionCard(byId(id), {show:true,
         meta:'<span>错过 '+progress.wrong[id]+' 次</span><button data-forget="'+id+'">已掌握，移除</button>'});
     });
+    h += '</div>';
   });
   view.innerHTML = h + foot();
-}
-
-function foot(){
-  return '<div class="foot">题目来自 SDI 开放水域潜水员线上课程各章练习题。'+
-    '第一章第 3、6、9、15 题和第二章第 6、9、12 题的部分选项在截图里被播放器浮层挡住，是按上下文补全的，对照课件确认一下。'+
-    '<div class="sync">'+(dbReady?"进度已同步，换设备打开也在。":"进度存在这台设备的浏览器里。")+'</div></div>';
 }
 
 function render(){
