@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SDI 开放水域题库</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+
+  --ground:#e7ebec;
+  --surface:#ffffff;
+  --surface-2:#f3f6f6;
+  --ink:#0e2029;
+  --ink-2:#5a7079;
+  --ink-3:#8b9ca2;
+  --line:#ccd6d9;
+  --line-soft:#e1e8e9;
+  --flag:#c62c22;
+  --deep:#0f4c5c;
+  --deep-soft:#e2f0f1;
+  --flag-soft:#fbe7e5;
+  --shadow:0 1px 0 rgba(14,32,41,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#091720;--surface:#10242d;--surface-2:#16303a;
+    --ink:#e2ebec;--ink-2:#93a9b0;--ink-3:#6d858d;
+    --line:#22414c;--line-soft:#1a343e;
+    --flag:#e2544a;--deep:#4fb3bf;--deep-soft:#11363d;--flag-soft:#361c1c;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#091720;--surface:#10242d;--surface-2:#16303a;
+  --ink:#e2ebec;--ink-2:#93a9b0;--ink-3:#6d858d;
+  --line:#22414c;--line-soft:#1a343e;
+  --flag:#e2544a;--deep:#4fb3bf;--deep-soft:#11363d;--flag-soft:#361c1c;
+  --shadow:none;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4.5rem);-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+}
+.num{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--flag);outline-offset:2px;border-radius:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--ground);border-bottom:1px solid var(--line)}
+.bar-in{max-width:46rem;margin:0 auto;padding:.7rem 1.1rem .55rem}
+.brand{display:flex;align-items:center;gap:.6rem}
+.flagmark{width:1.55rem;height:1.15rem;flex:none;border-radius:2px;
+  background:linear-gradient(105deg,var(--flag) 0 38%,#fff 38% 57%,var(--flag) 57% 100%);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.brand h1{margin:0;font-size:.98rem;font-weight:600;letter-spacing:.01em}
+.brand span{color:var(--ink-2);font-weight:400}
+.tabs{display:flex;gap:.3rem;margin-top:.6rem}
+.tab{flex:1;padding:.42rem .3rem;border-radius:5px;font-size:.88rem;color:var(--ink-2);border:1px solid transparent;text-align:center}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--line);font-weight:600}
+.tab b{font-family:Archivo,sans-serif;font-weight:600;color:var(--flag);margin-left:.18rem}
+
+main{max-width:46rem;margin:0 auto;padding:1.1rem 1.1rem 5rem}
+
+.chapline{display:flex;align-items:baseline;gap:.55rem;margin:0 0 1rem;padding-bottom:.75rem;border-bottom:1px solid var(--line)}
+.chapline .ch{font-family:Archivo,sans-serif;font-size:1.45rem;font-weight:700;color:var(--flag);line-height:1}
+.chapline .tt{font-size:1.02rem;font-weight:600}
+.chapline .ct{margin-left:auto;font-size:.82rem;color:var(--ink-3);white-space:nowrap}
+
+.rowtools{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.chip{padding:.3rem .7rem;border:1px solid var(--line);border-radius:999px;font-size:.82rem;color:var(--ink-2);background:var(--surface)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.hint{font-size:.82rem;color:var(--ink-3);margin:0 0 1rem}
+
+.q{background:var(--surface);border:1px solid var(--line-soft);border-radius:7px;
+  padding:.95rem 1rem 1rem;margin-bottom:.7rem;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:2.1rem 1fr;column-gap:.6rem}
+.q-n{font-family:Archivo,sans-serif;font-weight:700;font-size:1.15rem;color:var(--ink-3);line-height:1.45;padding-top:.05rem}
+.q-body{min-width:0}
+.q-text{margin:0 0 .7rem;font-weight:600;line-height:1.6}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
+.opt{display:grid;grid-template-columns:1.25rem 1fr;gap:.45rem;align-items:start;
+  padding:.34rem .5rem .34rem .35rem;border-radius:5px;border-left:3px solid transparent;
+  font-size:.95rem;color:var(--ink-2);line-height:1.55}
+.opt .k{font-family:Archivo,sans-serif;font-weight:600;color:var(--ink-3)}
+.opt.is-right{background:var(--deep-soft);border-left-color:var(--deep);color:var(--ink)}
+.opt.is-right .k{color:var(--deep)}
+.opt.is-wrong{background:var(--flag-soft);border-left-color:var(--flag);color:var(--ink)}
+.opt.is-wrong .k{color:var(--flag)}
+.note{margin:.7rem 0 0;padding:.5rem .7rem;border-radius:5px;background:var(--surface-2);
+  font-size:.86rem;color:var(--ink-2);line-height:1.6}
+.reveal{margin-top:.55rem;font-size:.84rem;color:var(--deep);border-bottom:1px solid currentColor;padding-bottom:1px}
+.meta{margin-top:.6rem;font-size:.8rem;color:var(--ink-3);display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
+.meta button{font-size:.8rem;color:var(--ink-3);border-bottom:1px solid var(--line)}
+
+.btn{display:inline-block;padding:.6rem 1.15rem;border-radius:6px;font-size:.95rem;font-weight:600;
+  background:var(--ink);color:var(--ground);text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:500}
+.btn.flag{background:var(--flag);color:#fff}
+.btn[disabled]{opacity:.35;cursor:default}
+.btns{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.1rem}
+
+.panel{background:var(--surface);border:1px solid var(--line-soft);border-radius:7px;padding:1.1rem;box-shadow:var(--shadow)}
+.panel h2{margin:0 0 .2rem;font-size:1.02rem}
+.panel p{margin:0 0 1rem;font-size:.87rem;color:var(--ink-2)}
+.field{margin-bottom:.9rem}
+.field .lab{font-size:.82rem;color:var(--ink-3);margin-bottom:.35rem}
+.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{flex:1;padding:.45rem .3rem;font-size:.88rem;color:var(--ink-2);line-height:1.4}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground);font-weight:600}
+.seg button[disabled]{opacity:.35;cursor:default}
+.seg .sub{display:block;font-size:.72rem;opacity:.7;font-weight:400}
+
+.gauge{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
+.gauge .pos{font-family:Archivo,sans-serif;font-weight:700;font-size:.95rem;white-space:nowrap}
+.gauge .pos i{font-style:normal;color:var(--ink-3);font-weight:500}
+.track{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.track i{display:block;height:100%;background:var(--flag);transition:width .25s ease}
+.pick{display:grid;grid-template-columns:1.6rem 1fr;gap:.5rem;align-items:start;width:100%;
+  text-align:left;padding:.65rem .75rem;margin-bottom:.4rem;border-radius:6px;
+  border:1px solid var(--line);background:var(--surface);font-size:.97rem;line-height:1.55}
+.pick .k{font-family:Archivo,sans-serif;font-weight:600;color:var(--ink-3)}
+.pick[aria-pressed="true"]{border-color:var(--ink);background:var(--surface-2)}
+.pick[aria-pressed="true"] .k{color:var(--flag)}
+.navrow{display:flex;gap:.55rem;margin-top:1.2rem}
+.navrow .btn{flex:1}
+
+.score{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.2rem}
+.score .big{font-family:Archivo,sans-serif;font-size:3.1rem;font-weight:700;line-height:1;color:var(--flag)}
+.score .of{font-size:.9rem;color:var(--ink-2)}
+.verdict{font-size:.88rem;color:var(--ink-2);margin:.5rem 0 0}
+
+.empty{text-align:center;padding:2.6rem 1rem;color:var(--ink-2);font-size:.92rem}
+.empty .fm{width:2.4rem;height:1.8rem;margin:0 auto 1rem;border-radius:3px;opacity:.5;
+  background:linear-gradient(105deg,var(--flag) 0 38%,#fff 38% 57%,var(--flag) 57% 100%)}
+.sec-h{font-size:.85rem;color:var(--ink-3);margin:1.6rem 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid var(--line-soft)}
+.foot{margin-top:2.2rem;font-size:.78rem;color:var(--ink-3);line-height:1.7;border-top:1px solid var(--line);padding-top:.9rem}
+.sync{margin-top:.4rem}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand">
+      <div class="flagmark" aria-hidden="true"></div>
+      <h1>SDI 开放水域 <span>理论题库</span></h1>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="study" aria-selected="true">背题</button>
+      <button class="tab" role="tab" data-tab="exam" aria-selected="false">刷题</button>
+      <button class="tab" role="tab" data-tab="wrong" aria-selected="false">错题<b id="wrongCount"></b></button>
+    </nav>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<script>
+(function(){
+"use strict";
+
+/* ================= 题库 ================= */
+const CHAPTERS = [{
+  id:"ch1", no:"01", short:"第一章", title:"潜水与水下环境",
+  questions:[
+    {q:"水肺（SCUBA）是什么意思？",
+     o:["水下自携式呼吸装置","所有潜水活动的统称","用呼吸管在水面进行活动","单蹼竞技"],a:0,
+     note:"Self-Contained Underwater Breathing Apparatus，重点在「自携」——气源自己背着。"},
+    {q:"下列哪项不属于 1950 年代潜水界的重要事件？",
+     o:["休闲运动潜水的初始阶段发展","美国海军潜水计划表发布","潜水电脑表的大众化使用","商业潜水的开始"],a:3,
+     note:"课件按 d 计分。顺带记：潜水电脑表普及要到 80 年代，也不属于 50 年代，考试仍按课件选 d。"},
+    {q:"下列哪项不能被现代潜水电脑表所代替？",
+     o:["潜水表","深度计","残压表","浮力控制装置"],a:3,
+     note:"电脑表把计时、深度、残压三样整合进去了；BCD 是浮力装备，功能完全不同。"},
+    {q:"下列哪项不属于 SDI 与其他潜水机构的差异化特点？",
+     o:["将潜水电脑纳入潜水教学体系","采用计算机与互联网技术开展潜水教学","从初始阶段就坚持严格且高强度的训练体系","提倡轻松舒适的潜水方式"],a:2,
+     note:"SDI 的三个标签是：电脑表教学、互联网教学、轻松舒适。「严格高强度」正好相反。"},
+    {q:"水下物体与实际的视觉差异及原因是什么？",
+     o:["因光的折射而显大","因光的折射而显小","因光的吸收而显大","因光的吸收而显小"],a:0,
+     note:"折射让物体显大约 33%、显近约 25%。记「又大又近」。"},
+    {q:"水中声音传播速度比空气快多少？这对潜水员有何影响？",
+     o:["约快 25%，方向感变迟钝","约快 25%，方向感变敏锐","约快 4 倍，方向感变迟钝","约快 4 倍，方向感变敏锐"],a:2,
+     note:"水中约 1500 m/s。太快 → 两耳接收的时间差几乎没了 → 判断不出声音从哪来。"},
+    {q:"水下哪种颜色的光最先被吸收？",
+     o:["红色","蓝色","绿色","紫色"],a:0,
+     note:"红 → 橙 → 黄 → 绿 → 蓝。红色大约五米就开始发灰发黑，所以血在水下是绿褐色的。"},
+    {q:"在海岸潜水时，最佳的入水时机是潮汐流最弱的＿＿＿时段，此时海水的水平移动最为微弱。",
+     o:["满潮","干潮","平潮","大潮"],a:2,
+     note:"平潮＝slack tide，涨落潮转换之间的停滞期。满潮、干潮说的是水位，不是流速。"},
+    {q:"若遭遇离岸流，应先沿离岸流的＿＿＿方向游动脱离海流后，再返回海岸。",
+     o:["水平","垂直","外海","东面"],a:1,
+     note:"离岸流是从岸边冲向外海的窄而强的水流。要朝垂直于它的方向（也就是平行海岸）游出去，千万别顶着流硬游回岸。"},
+    {q:"波浪通常由＿＿＿作用形成。",
+     o:["风","潮汐","季节","水中生物"],a:0,
+     note:"波浪＝风吹水面；潮汐＝月球引力造成的水位升降。两件事别混。"},
+    {q:"关于陆上、水下声音传导及体温流失，正确描述是？",
+     o:["与陆地相比，水下声音传播速度更快且体温流失更严重","与陆地相比，水下声音传播速度更快且流失较少","与陆地相比，水下声音传播速度更慢且体温流失更严重","与陆地相比，水下声音传播速度更慢且流失较少"],a:0,
+     note:"水的导热能力约是空气的 20–25 倍，所以失温快。两个都是「更快 / 更严重」。"},
+    {q:"潜水员在下潜过程中突然感到温度骤降且视线出现晃动现象，那么最可能遇到的是下列哪种区域？",
+     o:["水温层","等温层","温跃层","热层"],a:2,
+     note:"温跃层：很短的深度内水温急剧变化，冷热水密度不同，看东西像隔了一层晃动的玻璃。"},
+    {q:"遇到不熟悉的水下生物时该如何处理？",
+     o:["恐吓并驱赶他们","发出大声响并驱赶他们","保持一定距离观察或避开","投喂食物引诱他们"],a:2,
+     note:"三不原则：不驱赶、不投喂、不触碰。保持距离看就好。"},
+    {q:"以下哪项不是理想的潜水行为？",
+     o:["注意不要破坏水下生态","防止污染海洋环境","给鱼类投喂充足的食物","避免接触以防破坏珊瑚"],a:2,
+     note:"投喂会改变鱼类的自然摄食习性，让它们依赖人，属于破坏生态。"},
+    {q:"关于潜水证书的错误描述是？",
+     o:["由政府机关颁发","潜水时需随身携带","完成课程后颁发","泳池或度假村可能会要求出示"],a:0,
+     note:"潜水证是 SDI、PADI 这类民间培训机构发的，不是政府颁发。"}
+  ]
+},{
+  id:"ch2", no:"02", short:"第二章", title:"潜水物理学·生理学",
+  questions:[
+    {q:"在海水 20 米深处，绝对压是多少个大气压？",
+     o:["1 个大气压","2 个大气压","3 个大气压","4 个大气压"],a:2,
+     note:"每下潜 10 米加 1 个大气压，再加上水面本来的 1 个：20 ÷ 10 + 1 = 3 ata。"},
+    {q:"把一个在 30 米深的海水中、体积为 2 立方米的气球拉到水面（1 个大气压）时，体积会变成多少？",
+     o:["2 m³","4 m³","8 m³","10 m³"],a:2,
+     note:"波义耳定律，压力与体积成反比。30 米＝4 ata，升到水面压力变成 1/4，体积就涨 4 倍：2 × 4 = 8。"},
+    {q:"在 4 个大气压下，气球内部空气的密度是 1 个大气压下气球内部空气密度的多少倍？",
+     o:["2 倍","4 倍","8 倍","10 倍"],a:1,
+     note:"密度和压力成正比（和体积成反比）。压力 4 倍，密度就是 4 倍。"},
+    {q:"在水面上可以使用 2 小时的水肺气瓶，在 20 米水深能使用多长时间？",
+     o:["2 小时","1 小时","40 分钟","30 分钟"],a:2,
+     note:"20 米＝3 ata，每口气的密度是水面的 3 倍，耗气也是 3 倍：120 ÷ 3 = 40 分钟。"},
+    {q:"下潜过程中开始进行耳压平衡的合适时机是？",
+     o:["开始下潜的同时","耳朵疼的时候","鼻窦疼的时候","从水深 5 米开始"],a:0,
+     note:"早做、勤做，从入水那一刻就开始。等疼了才做已经晚了，那时压差已经压住了耳膜。"},
+    {q:"下潜过程中如果耳朵无法进行耳压平衡该怎么办？",
+     o:["继续尝试下潜","立即放弃潜水","稍微上升到浅一点的地方再尝试","眨眼睛"],a:2,
+     note:"上升一点，压差变小，再试一次。硬顶着下潜会伤耳膜；也不用马上放弃整潜。"},
+    {q:"以下哪种压迫与解决方法的对应关系是错误的？",
+     o:["耳朵挤压 —— 捏住鼻子耳压平衡","鼻窦挤压 —— 深长而缓慢的呼吸","面镜挤压 —— 面镜吹气（blowing）","肺挤压 —— 持续呼吸"],a:1,
+     note:"鼻窦挤压靠呼吸解决不了。鼻窦堵住（感冒、过敏）就只能停止下潜、上升，严重时取消这一潜。其余三组配对都是对的。"},
+    {q:"什么是反向挤压（reverse block）？",
+     o:["上升过程中无法进行耳压平衡","下降过程中无法进行耳压平衡","比规定速度更快上升","比规定速度更快下降"],a:0,
+     note:"「反向」＝和下潜时相反，发生在上升途中：体内气体膨胀却排不出去。处理办法是停住、稍微下潜一点再慢慢升。"},
+    {q:"水肺潜水最重要的规则是什么？",
+     o:["经常耳压平衡","不和潜伴分开","使用潜水电脑表","绝对不要憋气"],a:3,
+     note:"Never hold your breath。水肺第一铁律，其他都排在它后面。"},
+    {q:"潜水员在上升过程中憋气可能导致的最严重伤害是什么？",
+     o:["肺部过度膨胀","减压病","氮醉","氧中毒"],a:0,
+     note:"上升时肺内气体膨胀，憋着出不去就会撑破肺泡，可能引发动脉气体栓塞。憋气上升几米就足以出事。"},
+    {q:"导致减压病和氮醉的空气成分、气体是？",
+     o:["氧气","氮气","二氧化碳","氢气"],a:1,
+     note:"两个病都是氮气惹的：高压下溶进身体，上升太快就冒泡（减压病）；深处分压高就麻醉神经（氮醉）。"},
+    {q:"正确表示空气成分的是？",
+     o:["氧气 79%，氮气 21%","氧气 21%，氮气 79%","氧气 68%，氮气 32%","氧气 32%，氮气 68%"],a:1,
+     note:"氧 21、氮 79。别被顺序调换的 a 骗了。"},
+    {q:"下列关于氧气的描述中，恰当的是？",
+     o:["氧气必须始终与氮气一起呼吸","氧气成分越低，对潜水越有利","潜水时，氧气可以按照与空气相同的方法使用","氧气在高压环境下呼吸时可能具有危险性"],a:3,
+     note:"氧气在高分压下会变成毒——氧中毒，可能抽搐。所以纯氧绝不能拿来深潜。"},
+    {q:"关于高氧（Nitrox）的描述中，正确的是？",
+     o:["二氧化碳的成分比例比普通空气高","一氧化碳的成分比例比普通空气高","氮气成分比例比普通空气高","氧气成分比例比普通空气高"],a:3,
+     note:"高氧＝提高氧气比例、相应降低氮气比例，好处是减少氮负荷、延长免减压时间，代价是深度上限更严。"},
+    {q:"一般来说，氮醉现象发生在多少水深？",
+     o:["15m","30m","50m","70m"],a:1,
+     note:"通常 30 米左右开始出现，越深越明显。个体差异大，疲劳、寒冷、紧张都会提前触发。"},
+    {q:"在水下出现轻微氮醉时，可能会感受到的症状中，不恰当的是哪一项？",
+     o:["失去意识","幸福感","不安","判断力低下"],a:0,
+     note:"轻微氮醉像喝醉：欣快、焦虑、判断力和反应变慢。失去意识不属于「轻微」这一档。"},
+    {q:"如何减轻氮醉症状？",
+     o:["下潜到更深的区域","上升到较浅的水域","慢慢呼吸","经常耳压平衡"],a:1,
+     note:"上升到浅处，氮分压降下来，症状几分钟内就消失，而且不留后遗症。这是唯一有效的处理。"},
+    {q:"会引发头痛和呕吐，严重时会导致嘴唇和指甲下呈樱桃红色并使人失去意识的气体是？",
+     o:["一氧化碳","二氧化碳","氮气","氧气"],a:0,
+     note:"一氧化碳中毒的典型特征就是樱桃红。来源通常是充气时压缩机进气口吸进了引擎废气。"},
+    {q:"下列关于水肺气瓶内空气被污染时出现的现象，正确的是？",
+     o:["呼吸装置发生自由排气（free flow）","呼吸时会发出声音","一呼吸嗓子就干","呼吸时有异常的味道或气味"],a:3,
+     note:"污染气最主要的线索是气味和味道（油味、焦味）。所以每次拿到气瓶先开阀闻一下。"},
+    {q:"潜水过程中突然身体不适并出现头痛时，应该怎么做？",
+     o:["结束潜水并上升后休息","快速反复地呼吸","深深地、慢慢地呼吸","停止行动，抓住固定物体休息"],a:0,
+     note:"头痛头晕恶心疲劳，多半是二氧化碳蓄积或气体污染。正确做法是结束这一潜、按规定速度上升、到水面呼吸新鲜空气休息。"}
+  ]
+}];
+
+CHAPTERS.forEach(c=>c.questions.forEach((q,i)=>{q.id=c.id+"-"+(i+1);q.n=i+1;q.chap=c.id;}));
+const ALL = CHAPTERS.flatMap(c=>c.questions);
+const byId = id => ALL.find(q=>q.id===id);
+const chapById = id => CHAPTERS.find(c=>c.id===id);
+const KEYS = ["a","b","c","d","e"];
+
+/* ================= 进度存储 ================= */
+const LS = "sdi-ow-progress-v1";
+const progress = {wrong:{}, attempts:[]};
+let dbDoc = null, dbReady = false;
+
+function readLocal(){
+  try{
+    const raw = localStorage.getItem(LS);
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    if(d && typeof d==="object"){
+      progress.wrong = d.wrong && typeof d.wrong==="object" ? d.wrong : {};
+      progress.attempts = Array.isArray(d.attempts) ? d.attempts : [];
+    }
+  }catch(e){}
+}
+function writeLocal(){
+  try{ localStorage.setItem(LS, JSON.stringify({wrong:progress.wrong, attempts:progress.attempts})); }catch(e){}
+}
+function adopt(d){
+  if(!d || typeof d!=="object") return;
+  progress.wrong = d.wrong && typeof d.wrong==="object" ? d.wrong : {};
+  progress.attempts = Array.isArray(d.attempts) ? d.attempts : [];
+  writeLocal();
+}
+function hasLocalData(){ return Object.keys(progress.wrong).length>0 || progress.attempts.length>0; }
+
+async function save(){
+  writeLocal();
+  render();
+  if(!dbDoc) return;
+  try{ await dbDoc.set({wrong:progress.wrong, attempts:progress.attempts.slice(-30)}); }catch(e){}
+}
+
+async function initSync(){
+  let cap = null;
+  try{ cap = window.claude && window.claude.use ? await window.claude.use("db") : null; }catch(e){ cap = null; }
+  if(!cap) return;
+  try{
+    dbDoc = cap.doc("progress/main");
+    const snap = await dbDoc.get();
+    if(snap && snap.exists){ adopt(snap.data()); }
+    else if(hasLocalData()){ await dbDoc.set({wrong:progress.wrong, attempts:progress.attempts.slice(-30)}); }
+    dbReady = true;
+    render();
+    dbDoc.onSnapshot(function(s){
+      if(s && s.exists && !(s.metadata && s.metadata.hasPendingWrites)){ adopt(s.data()); render(); }
+    }, function(){});
+  }catch(e){ dbDoc = null; }
+}
+
+/* ================= 状态 ================= */
+const state = {tab:"study", chap:"ch1", showAnswers:true, revealed:{}, exam:null, scope:"ch1", shuffle:false};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const wrongIds = () => ALL.filter(q=>progress.wrong[q.id]>0).map(q=>q.id);
+
+/* ================= 渲染 ================= */
+const view = document.getElementById("view");
+
+function chapSeg(current, attr){
+  let h = '<div class="seg" style="margin-bottom:1rem">';
+  CHAPTERS.forEach(c=>{
+    h += '<button data-'+attr+'="'+c.id+'" aria-pressed="'+(current===c.id?"true":"false")+'">'+
+      esc(c.short)+'<span class="sub">'+esc(c.title)+'</span></button>';
+  });
+  return h+'</div>';
+}
+
+function chapLine(c, extra){
+  return '<div class="chapline"><span class="ch num">'+c.no+'</span><span class="tt">'+esc(c.title)+
+    '</span><span class="ct num">'+(extra||(c.questions.length+" 题"))+'</span></div>';
+}
+
+function questionCard(q, opts){
+  opts = opts || {};
+  const show = opts.show;
+  let lis = "";
+  for(let i=0;i<q.o.length;i++){
+    let cls = "";
+    if(show && i===q.a) cls = "is-right";
+    if(show && opts.picked!=null && i===opts.picked && i!==q.a) cls = "is-wrong";
+    lis += '<li class="opt '+cls+'"><span class="k num">'+KEYS[i]+'</span><span>'+esc(q.o[i])+'</span></li>';
+  }
+  let tail = show ? '<p class="note">'+esc(q.note)+'</p>'
+                  : '<button class="reveal" data-reveal="'+q.id+'">看答案</button>';
+  let meta = opts.meta || "";
+  if(opts.chapLabel) meta = '<span>'+esc(chapById(q.chap).short)+'</span>' + meta;
+  if(meta) tail += '<div class="meta">'+meta+'</div>';
+  return '<article class="q"><div class="q-n num">'+q.n+'</div><div class="q-body">'+
+    '<p class="q-text">'+esc(q.q)+'</p><ul class="opts">'+lis+'</ul>'+tail+'</div></article>';
+}
+
+/* ---------- 背题 ---------- */
+function viewStudy(){
+  const c = chapById(state.chap) || CHAPTERS[0];
+  let h = chapSeg(c.id, "studychap") + chapLine(c);
+  h += '<div class="rowtools">'+
+    '<button class="chip" data-toggle="answers" aria-pressed="'+(state.showAnswers?"true":"false")+'">'+
+    (state.showAnswers?"答案已显示":"答案已遮住")+'</button>'+
+    '<span class="hint" style="margin:0">'+(state.showAnswers?"关掉可以逐题自测":"点每题下面的「看答案」逐题揭晓")+'</span></div>';
+  c.questions.forEach(q=>{ h += questionCard(q, {show: state.showAnswers || !!state.revealed[q.id]}); });
+  view.innerHTML = h + foot();
+}
+
+/* ---------- 刷题 ---------- */
+function viewExam(){
+  const ex = state.exam;
+  if(!ex) return examStart();
+  if(ex.done) return examResult();
+  return examRun();
+}
+
+function scopeIds(scope){
+  if(scope==="wrong") return wrongIds();
+  if(scope==="all") return ALL.map(q=>q.id);
+  const c = chapById(scope);
+  return c ? c.questions.map(q=>q.id) : [];
+}
+function scopeLabel(scope){
+  if(scope==="wrong") return "错题";
+  if(scope==="all") return "全部";
+  const c = chapById(scope);
+  return c ? c.short : "";
+}
+
+function examStart(){
+  const wn = wrongIds().length;
+  const last = progress.attempts.slice(-3).reverse();
+  let h = '<div class="panel"><h2>开始一轮</h2><p>答完整轮才判分，做错的题会自动进错题本。</p>';
+  h += '<div class="field"><div class="lab">范围</div><div class="seg">';
+  CHAPTERS.forEach(c=>{
+    h += '<button data-scope="'+c.id+'" aria-pressed="'+(state.scope===c.id?"true":"false")+'">'+
+      esc(c.short)+'<span class="sub">'+c.questions.length+' 题</span></button>';
+  });
+  h += '<button data-scope="all" aria-pressed="'+(state.scope==="all"?"true":"false")+'">全部<span class="sub">'+ALL.length+' 题</span></button>';
+  h += '</div></div>';
+  h += '<div class="field"><div class="lab">顺序</div><div class="seg">'+
+    '<button data-shuffle="0" aria-pressed="'+(!state.shuffle?"true":"false")+'">按题号</button>'+
+    '<button data-shuffle="1" aria-pressed="'+(state.shuffle?"true":"false")+'">打乱</button>'+
+    '</div></div>';
+  h += '<div class="btns"><button class="btn flag" data-start="1">开始答题</button>'+
+    '<button class="btn ghost" data-wrongrun="1"'+(wn?"":" disabled")+'>只练错题 '+wn+'</button></div></div>';
+  if(last.length){
+    h += '<div class="sec-h">最近成绩</div>';
+    last.forEach(a=>{
+      h += '<div class="meta" style="margin:.35rem 0"><span class="num">'+a.correct+" / "+a.total+'</span>'+
+        '<span>'+esc(a.label||"")+'</span><span>'+esc(a.when||"")+'</span></div>';
+    });
+  }
+  view.innerHTML = h + foot();
+}
+
+function examRun(){
+  const ex = state.exam;
+  const q = byId(ex.ids[ex.idx]);
+  const pct = Math.round(ex.idx/ex.ids.length*100);
+  let h = '<div class="gauge"><span class="pos">'+(ex.idx+1)+' <i>/ '+ex.ids.length+'</i></span>'+
+    '<span class="track"><i style="width:'+pct+'%"></i></span></div>';
+  h += '<article class="q" style="display:block"><p class="q-text" style="font-size:1.05rem">'+
+    '<span class="num" style="color:var(--ink-3);margin-right:.45rem">'+
+    (ex.mixed ? esc(chapById(q.chap).short)+" " : "")+q.n+'</span>'+esc(q.q)+'</p>';
+  for(let i=0;i<q.o.length;i++){
+    h += '<button class="pick" data-pick="'+i+'" aria-pressed="'+(ex.picks[q.id]===i?"true":"false")+'">'+
+      '<span class="k">'+KEYS[i]+'</span><span>'+esc(q.o[i])+'</span></button>';
+  }
+  h += '</article>';
+  const isLast = ex.idx === ex.ids.length-1;
+  const answered = Object.keys(ex.picks).length;
+  h += '<div class="navrow">'+
+    '<button class="btn ghost" data-nav="-1"'+(ex.idx===0?" disabled":"")+'>上一题</button>'+
+    (isLast
+      ? '<button class="btn flag" data-submit="1"'+(answered<ex.ids.length?" disabled":"")+'>交卷</button>'
+      : '<button class="btn" data-nav="1">下一题</button>')+
+    '</div>';
+  if(isLast && answered<ex.ids.length){
+    h += '<p class="hint" style="margin-top:.7rem">还有 '+(ex.ids.length-answered)+' 题没选，回去补完就能交卷。</p>';
+  }
+  h += '<div class="btns"><button class="btn ghost" data-quit="1">退出本轮</button></div>';
+  view.innerHTML = h;
+}
+
+function examResult(){
+  const ex = state.exam;
+  const wrong = ex.ids.filter(id=>ex.picks[id]!==byId(id).a);
+  const correct = ex.ids.length - wrong.length;
+  const rate = Math.round(correct/ex.ids.length*100);
+  let verdict;
+  if(rate===100) verdict = "全对。这一轮可以过了。";
+  else if(rate>=80) verdict = "达标线附近了，把下面几题的原理弄明白再刷一轮。";
+  else verdict = "先回背题模式过一遍，重点看错的那几条原理。";
+
+  let h = '<div class="panel"><div class="score"><span class="big num">'+rate+'</span>'+
+    '<span class="of num">%　'+correct+' / '+ex.ids.length+' 题正确</span></div>'+
+    '<p class="verdict">'+verdict+'</p>'+
+    '<div class="btns"><button class="btn" data-again="same">再刷一轮</button>'+
+    (wrong.length?'<button class="btn ghost" data-again="wrong">只练这轮错题</button>':'')+
+    '<button class="btn ghost" data-again="back">返回</button></div></div>';
+  if(wrong.length){
+    h += '<div class="sec-h">这轮做错的 '+wrong.length+' 题</div>';
+    wrong.forEach(id=>{
+      const q = byId(id);
+      h += questionCard(q, {show:true, picked:ex.picks[id], chapLabel:ex.mixed,
+        meta:'<span>你选了 '+KEYS[ex.picks[id]]+'，正确答案 '+KEYS[q.a]+'</span>'});
+    });
+  }
+  view.innerHTML = h + foot();
+}
+
+/* ---------- 错题本 ---------- */
+function viewWrong(){
+  const ids = wrongIds();
+  if(!ids.length){
+    view.innerHTML = '<div class="empty"><div class="fm"></div>错题本是空的。<br>去刷题模式测一轮，做错的题会自动收进来。</div>'+foot();
+    return;
+  }
+  let h = '<div class="btns" style="margin:0 0 1rem"><button class="btn flag" data-wrongrun="1">只练这些题（'+ids.length+'）</button>'+
+    '<button class="btn ghost" data-clearall="1">清空错题本</button></div>';
+  CHAPTERS.forEach(c=>{
+    const mine = ids.filter(id=>byId(id).chap===c.id);
+    if(!mine.length) return;
+    h += '<div class="sec-h">'+esc(c.short)+" "+esc(c.title)+'　'+mine.length+' 题</div>';
+    mine.forEach(id=>{
+      h += questionCard(byId(id), {show:true,
+        meta:'<span>错过 '+progress.wrong[id]+' 次</span><button data-forget="'+id+'">已掌握，移除</button>'});
+    });
+  });
+  view.innerHTML = h + foot();
+}
+
+function foot(){
+  return '<div class="foot">题目来自 SDI 开放水域潜水员线上课程各章练习题。'+
+    '第一章第 3、6、9、15 题和第二章第 6、9、12 题的部分选项在截图里被播放器浮层挡住，是按上下文补全的，对照课件确认一下。'+
+    '<div class="sync">'+(dbReady?"进度已同步，换设备打开也在。":"进度存在这台设备的浏览器里。")+'</div></div>';
+}
+
+function render(){
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", t.dataset.tab===state.tab ? "true":"false"));
+  const wc = wrongIds().length;
+  document.getElementById("wrongCount").textContent = wc ? " "+wc : "";
+  if(state.tab==="study") viewStudy();
+  else if(state.tab==="exam") viewExam();
+  else viewWrong();
+}
+
+/* ================= 交互 ================= */
+function startExam(ids, label){
+  const list = ids.slice();
+  if(state.shuffle){ for(let i=list.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=list[i]; list[i]=list[j]; list[j]=t; } }
+  const chaps = {};
+  list.forEach(id=>{ chaps[byId(id).chap] = 1; });
+  state.exam = {ids:list, idx:0, picks:{}, done:false, label:label, mixed:Object.keys(chaps).length>1};
+  state.tab = "exam";
+  render();
+  window.scrollTo(0,0);
+}
+
+function submitExam(){
+  const ex = state.exam;
+  ex.done = true;
+  let correct = 0;
+  ex.ids.forEach(id=>{
+    if(ex.picks[id]===byId(id).a){ correct++; if(progress.wrong[id]) delete progress.wrong[id]; }
+    else progress.wrong[id] = (progress.wrong[id]||0)+1;
+  });
+  const d = new Date();
+  progress.attempts.push({
+    correct:correct, total:ex.ids.length, label:ex.label||"",
+    when:(d.getMonth()+1)+"月"+d.getDate()+"日 "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")
+  });
+  save();
+  window.scrollTo(0,0);
+}
+
+document.addEventListener("click", function(e){
+  const t = e.target.closest("[data-tab],[data-studychap],[data-toggle],[data-reveal],[data-scope],[data-shuffle],[data-start],[data-pick],[data-nav],[data-submit],[data-quit],[data-again],[data-wrongrun],[data-clearall],[data-forget]");
+  if(!t) return;
+  const d = t.dataset;
+
+  if(d.tab){ state.tab = d.tab; render(); window.scrollTo(0,0); return; }
+  if(d.studychap){ state.chap = d.studychap; state.revealed = {}; render(); window.scrollTo(0,0); return; }
+  if(d.toggle==="answers"){ state.showAnswers = !state.showAnswers; state.revealed = {}; render(); return; }
+  if(d.reveal){ state.revealed[d.reveal] = true; render(); return; }
+  if(d.scope){ state.scope = d.scope; render(); return; }
+  if(d.shuffle){ state.shuffle = d.shuffle==="1"; render(); return; }
+  if(d.start){
+    const ids = scopeIds(state.scope);
+    if(ids.length) startExam(ids, scopeLabel(state.scope));
+    return;
+  }
+  if(d.pick!=null && state.exam && !state.exam.done){
+    const ex = state.exam;
+    ex.picks[ex.ids[ex.idx]] = Number(d.pick);
+    if(ex.idx < ex.ids.length-1){ ex.idx++; window.scrollTo(0,0); }
+    render(); return;
+  }
+  if(d.nav && state.exam){
+    state.exam.idx = Math.min(Math.max(state.exam.idx + Number(d.nav), 0), state.exam.ids.length-1);
+    render(); window.scrollTo(0,0); return;
+  }
+  if(d.submit){ submitExam(); return; }
+  if(d.quit){ state.exam = null; render(); window.scrollTo(0,0); return; }
+  if(d.again){
+    if(d.again==="back"){ state.exam = null; render(); }
+    else if(d.again==="same"){ startExam(state.exam.ids, state.exam.label); }
+    else { const w = wrongIds(); if(w.length) startExam(w, "错题"); }
+    window.scrollTo(0,0); return;
+  }
+  if(d.wrongrun){ const w = wrongIds(); if(w.length) startExam(w, "错题"); return; }
+  if(d.clearall){ progress.wrong = {}; save(); return; }
+  if(d.forget){ delete progress.wrong[d.forget]; save(); return; }
+});
+
+readLocal();
+render();
+initSync();
+})();
+</script>
+</body>
+</html>
