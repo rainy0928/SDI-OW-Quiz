@@ -47,7 +47,7 @@
   --bar:rgba(10,20,24,.82);
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 5rem);-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 6.6rem);-webkit-text-size-adjust:100%}
 body{
   margin:0;min-height:100%;
   background:var(--bg);
@@ -197,9 +197,61 @@ main{max-width:44rem;margin:0 auto;padding:1.8rem 1.3rem 4rem}
 .tile.pk[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
 .tile.pk[aria-pressed="true"] .bd{background:var(--flag);color:#fff}
 
+/* 章节横滑条（窄屏） */
+.strip{position:relative;display:flex;gap:.5rem;overflow-x:auto;margin:0 -1.3rem 1.9rem;padding:.15rem 1.3rem .45rem;
+  scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.sc{position:relative;flex:none;scroll-snap-align:start;display:flex;align-items:baseline;gap:.5rem;
+  padding:.55rem .95rem;border-radius:10px;background:var(--panel);border:1px solid var(--hair);
+  font-size:.85rem;color:var(--ink-2);white-space:nowrap;box-shadow:0 1px 1px rgba(19,33,40,.03);transition:all .15s}
+.sc .scn{font-family:Archivo,sans-serif;font-weight:600;font-size:.8rem;color:var(--ink-3)}
+.sc[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--panel)}
+.sc[aria-pressed="true"] .scn{color:var(--flag)}
+.sc .dot{position:absolute;top:.4rem;right:.4rem;width:5px;height:5px;border-radius:50%;background:var(--flag)}
+
+/* 宽屏侧栏 */
+.side{display:none}
+@media (min-width:960px){
+  body.with-side .bar-in{max-width:68rem}
+  body.with-side .shell{display:grid;grid-template-columns:15rem minmax(0,46rem);column-gap:3.4rem;
+    justify-content:center;max-width:68rem;margin:0 auto;padding:0 1.3rem}
+  body.with-side main{max-width:none;margin:0;padding:1.8rem 0 4rem}
+  body.with-side .side{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 5.6rem);align-self:start;
+    max-height:calc(100vh - env(safe-area-inset-top,0px) - 5.6rem);overflow-y:auto;padding:1.8rem 0 2rem;scrollbar-width:thin}
+  body.with-side .strip{display:none}
+}
+.side-lab{font-size:.72rem;color:var(--ink-3);letter-spacing:.08em;margin:0 0 .65rem .7rem}
+.chaps{display:grid;gap:.2rem;margin-bottom:2rem}
+.chap{display:grid;grid-template-columns:1.9rem 1fr;gap:.45rem;align-items:start;width:100%;text-align:left;
+  padding:.6rem .75rem;border-radius:10px;color:var(--ink-2);text-decoration:none;transition:background .15s,box-shadow .15s}
+.chap:hover{background:var(--hair-2)}
+.chap .cn{font-family:Archivo,sans-serif;font-weight:600;font-size:.92rem;color:var(--ink-3);line-height:1.55}
+.chap .ct{font-size:.88rem;line-height:1.5;color:var(--ink)}
+.chap .ct small{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.12rem}
+.chap .ct small b{font-weight:500;color:var(--flag);margin-left:.55rem}
+.chap[aria-current="true"]{background:var(--panel);box-shadow:var(--shadow)}
+.chap[aria-current="true"] .cn{color:var(--flag)}
+.chap.off{opacity:.45;pointer-events:none}
+.qidx{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem;padding:0 .2rem}
+.qidx a{display:flex;align-items:center;justify-content:center;height:2.15rem;border-radius:8px;
+  font-family:Archivo,sans-serif;font-size:.82rem;color:var(--ink-2);text-decoration:none;
+  background:var(--panel);box-shadow:0 0 0 1px var(--hair);transition:box-shadow .15s}
+.qidx a:hover{box-shadow:0 0 0 1px var(--ink-3)}
+.qidx a.w{color:var(--flag);background:var(--flag-tint);box-shadow:0 0 0 1px transparent;font-weight:600}
+.side-note{font-size:.72rem;color:var(--ink-3);margin:1rem 0 0 .7rem;line-height:1.6}
+
+/* 下一章 */
+.next{display:flex;flex-direction:column;align-items:flex-start;gap:.2rem;width:100%;margin-top:1.3rem;
+  padding:1.05rem 1.3rem;border-radius:14px;background:var(--panel);box-shadow:var(--shadow);text-align:left}
+.next .nl{font-size:.74rem;color:var(--ink-3);letter-spacing:.06em}
+.next .nt{font-size:1rem;font-weight:500;color:var(--ink)}
+.next .nt .num{color:var(--flag);font-weight:600;margin-right:.45rem}
+.scope-sum{font-size:.8rem;color:var(--ink-3);margin:.75rem 0 0}
+
 /* 署名 */
-.sign{margin-top:4rem;border-top:1px solid var(--hair);text-align:center}
-.sign .flagmark{margin:-.55rem auto 1.3rem;box-shadow:inset 0 0 0 1px rgba(0,0,0,.09),0 0 0 .55rem var(--bg-deep)}
+.sign{margin-top:4rem;text-align:center}
+.sign-line{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem}
+.sign-line::before,.sign-line::after{content:"";flex:1;height:1px;background:var(--hair)}
 .slogan{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:1.3rem;
   color:var(--deep);margin:0;letter-spacing:.01em}
 .by{font-size:.74rem;color:var(--ink-3);margin:.5rem 0 0;letter-spacing:.08em}
@@ -222,7 +274,10 @@ main{max-width:44rem;margin:0 auto;padding:1.8rem 1.3rem 4rem}
   </div>
 </header>
 
-<main id="view"></main>
+<div class="shell">
+  <aside class="side" id="side" aria-label="章节导航"></aside>
+  <main id="view"></main>
+</div>
 
 <script>
 (function(){
@@ -473,13 +528,66 @@ const CHAPTERS = [{
     {q:"下列哪项是「和同伴一起行动」的手势信号？",
      sig:["flat","ok","thumb","buddy"],a:3,
      note:"两根食指并排竖起＝潜伴、一起行动。这题 a、b 的原图被字幕挡住，暂时换成本章其他手势照片。"}
+  ]},{
+  id:"ch5", no:"05", short:"第五章", title:"潜水计划",
+  questions:[
+    {n:1, q:"到达潜水地点后，首先要做的事情是什么？",
+     o:["在高处观察现场","确认天气预报","确定潜水目的","进行必要的培训"],a:0,
+     note:"到了潜点先找个高处看全局：浪、流、出入水口、船只和其他潜水员。天气预报和潜水目的是出发前就该定好的。"},
+    {n:2, q:"潜水前与潜伴协商的内容中，不属于必备事项的是？",
+     o:["确定潜水目的","协商沟通方式","确认应急对策","是否参加下一阶段的培训"],a:3,
+     note:"潜前简报三件事：这一潜要干什么、怎么沟通、出状况怎么办。下一步考什么证跟这一潜无关。"},
+    {n:3, q:"潜水过程中与潜伴走散时，应采取的行动是什么？",
+     o:["各自进行潜水","在水中朝着最初目标的方向移动","观察周围 3 分钟后上升","立即紧急上升"],a:2,
+     note:"先在原地转着找（课件说观察 3 分钟），找不到就各自慢慢上升，到水面会合。别各潜各的，也别紧急上升。"},
+    {n:4, q:"下列哪项很难让人认为潜伴存在问题？",
+     o:["水面上面镜和呼吸调节器脱落","保持着中性浮力","对信号无回应或犹豫不决","眼睛睁大或呼吸急促"],a:1,
+     note:"a、c、d 都是潜伴出状况的信号：面镜调节器掉了、叫他没反应、眼睛瞪大呼吸急促（紧张到快要恐慌了）。能稳稳保持中性浮力，说明他状态没问题。"},
+    {n:5, q:"在水下空气耗尽时，不恰当的应对方法是？",
+     o:["如果还剩一点空气，就正常上升","使用潜伴的辅助呼吸调节器正常上升","穿戴好所有装备进行紧急游泳上升","吐出呼吸调节器，发出「啊～」的声音上升"],a:3,
+     note:"紧急游泳上升时调节器要一直咬在嘴里，边升边持续吐气、发出「啊——」的声音。吐掉调节器是错的：越往上压力越小，瓶里剩的气说不定还能再吸一口。"},
+    {n:6, q:"为了安全潜水，下列不恰当的做法是？",
+     o:["在安静的地方独自潜水","充分休息，避免饮酒和吸烟","行动缓慢","潜水前制定计划并按计划执行"],a:0,
+     note:"永远不要独自潜水，潜伴制度是开放水域的铁律。休息好、不喝酒不抽烟、动作放慢、按计划潜，都是对的。"},
+    {n:7, q:"为安全潜水，下列哪项不是需要与潜伴共同决定的事宜？",
+     o:["入水和出水地点及路线","潜水时间和最大水深","潜水结束后的装备清洁方法","要使用的手势信号"],a:2,
+     note:"跟潜伴商量的都是水下安全相关的：路线、时间深度、手势。潜完怎么洗装备各管各的。"},
+    {n:8, q:"下列哪项不是预防被水下生物伤害的恰当方法？",
+     o:["穿着潜水服和手套","不骚扰或威胁水下生物","保持正浮力","避免身体的任何部位与生物接触"],a:2,
+     note:"要的是中性浮力——稳稳悬停，不踩底、不碰珊瑚。正浮力会往上飘，控制不住反而乱踢乱碰。"},
+    {n:9, q:"对于体温过低的紧急处理，最恰当的方法是？",
+     o:["让其饮用温热饮品并做好保暖","脱掉潜水服和手套","让其饮用含酒精的饮品","让其服用维生素"],a:0,
+     note:"温热（不烫）的饮料加保暖。绝对不能喝酒——酒精让血管扩张，散热反而更快。"},
+    {n:10, q:"下列哪项是导致体温升高及中暑的原因？",
+     o:["在温暖的水温中潜水","摄入过多水分","使用受污染的空气","穿着沉重装备进行长距离移动"],a:3,
+     note:"穿着潜水服、背着全套装备在岸上走远路，是最容易中暑的时候：湿衣不透气，热量散不出去。"},
+    {n:11, q:"下列哪项是预防晕船的恰当方法？",
+     o:["注视水平线或远处的陆地","尽可能低头看下方","延长乘船时间来适应","尽可能待在船舱内"],a:0,
+     note:"看远处的水平线，让眼睛看到的和内耳感到的晃动对上。躲进船舱、低头看手机只会更晕。"},
+    {n:12, q:"下列哪项是与减压病影响因素关联较远的？",
+     o:["肥胖","进食量","高龄","吸烟"],a:1,
+     note:"肥胖、高龄、吸烟，还有疲劳、脱水、寒冷，都会提高减压病风险。吃多吃少关系不大。"},
+    {n:13, q:"预防肺部过度膨胀最重要的规则是什么？",
+     o:["缓慢上升","和潜伴一起潜水","呼吸氧气","不憋气，持续呼吸"],a:3,
+     note:"和第二章「水肺最重要的规则」是同一条：绝对不要憋气。"},
+    {n:14, q:"水肺潜水中上升速度的标准是什么？",
+     o:["尽可能缓慢上升","遵循潜水电脑的指示","每分钟低于 18 米","每分钟 18 米以上"],a:1,
+     note:"SDI 以电脑表为核心：上升速度听电脑的，超速它会报警。「18 米」是老式潜水表的上限，现在普遍要求更慢。"},
+    {n:15, q:"关于潜水电脑使用的内容中，恰当的是哪项？",
+     o:["潜水电脑是基于减压模型进行计算的，可能会因个人特点而有所不同，因此要保守使用","可以和其他人交替使用","使用潜水电脑的话，就没有必要进行安全停留了","潜水过程中电脑发生故障，就上升并更换成其他电脑"],a:0,
+     note:"电脑算的是模型，不是你的身体，所以要留余量。一台电脑只给一个人用；安全停留照做；潜水中电脑坏了要结束这一潜，也不能换一台接着潜——新电脑不知道你身体里已经有多少氮。"}
   ]
 }];
 
-CHAPTERS.forEach(c=>c.questions.forEach((q,i)=>{
-  q.id=c.id+"-"+(i+1);q.n=i+1;q.chap=c.id;
-  if(q.sig) q.o = q.sig.map(k=>SIG[k] ? SIG[k].m : k);
-}));
+const CN = ["一","二","三","四","五","六","七","八","九"];
+CHAPTERS.forEach((c,ci)=>{
+  c.cn = CN[ci] || String(ci+1);
+  c.questions.forEach((q,i)=>{
+    if(!q.n) q.n = i+1;
+    q.id = c.id+"-"+q.n; q.chap = c.id;
+    if(q.sig) q.o = q.sig.map(k=>SIG[k] ? SIG[k].m : k);
+  });
+});
 const ALL = CHAPTERS.flatMap(c=>c.questions);
 const byId = id => ALL.find(q=>q.id===id);
 const chapById = id => CHAPTERS.find(c=>c.id===id);
@@ -537,10 +645,12 @@ async function initSync(){
 }
 
 /* ================= 状态 ================= */
-const state = {tab:"study", chap:"ch1", showAnswers:true, revealed:{}, exam:null, scope:"ch1", shuffle:false};
+const state = {tab:"study", chap:"ch1", showAnswers:true, revealed:{}, exam:null, scope:["ch1"], shuffle:false};
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const wrongIds = () => ALL.filter(q=>progress.wrong[q.id]>0).map(q=>q.id);
+const wrongIn = c => c.questions.filter(q=>progress.wrong[q.id]>0).length;
 const view = document.getElementById("view");
+const side = document.getElementById("side");
 
 /* ================= 片段 ================= */
 function hero(c, extra){
@@ -553,7 +663,7 @@ function hero(c, extra){
 function tileHTML(q, i, cls, show, pick, pressed){
   const s = SIG[q.sig[i]];
   const bd = '<span class="bd" style="left:'+s.bx+'%;top:'+s.by+'%">'+KEYS[i]+'</span>';
-  const alt = show ? KEYS[i]+"：" + s.m : "选项 "+KEYS[i];
+  const alt = show ? KEYS[i]+"："+s.m : "选项 "+KEYS[i];
   const img = '<img src="'+s.src+'" alt="'+esc(alt)+'">';
   if(pick) return '<button class="tile pk" data-pick="'+i+'" aria-pressed="'+(pressed?"true":"false")+'">'+img+bd+'</button>';
   const cap = show ? '<span class="cap"><b>'+esc(s.m)+'</b><i>'+esc(s.d)+'</i></span>' : '';
@@ -563,7 +673,6 @@ function tileHTML(q, i, cls, show, pick, pressed){
 function questionCard(q, opts){
   opts = opts || {};
   const show = opts.show;
-  let lis = "";
   const clsOf = i => (show && i===q.a) ? "is-right"
     : (show && opts.picked!=null && i===opts.picked && i!==q.a) ? "is-wrong" : "";
   if(q.sig){
@@ -571,9 +680,9 @@ function questionCard(q, opts){
     for(let i=0;i<q.sig.length;i++) t += tileHTML(q, i, clsOf(i), show, false);
     return cardShell(q, '<div class="sig">'+t+'</div>', opts);
   }
+  let lis = "";
   for(let i=0;i<q.o.length;i++){
-    const cls = clsOf(i);
-    lis += '<li class="opt '+cls+'"><span class="k">'+KEYS[i]+'</span><span>'+esc(q.o[i])+'</span></li>';
+    lis += '<li class="opt '+clsOf(i)+'"><span class="k">'+KEYS[i]+'</span><span>'+esc(q.o[i])+'</span></li>';
   }
   return cardShell(q, '<ul class="opts">'+lis+'</ul>', opts);
 }
@@ -585,48 +694,88 @@ function cardShell(q, body, opts){
   let meta = opts.meta || "";
   if(opts.chapLabel) meta = '<span>'+esc(chapById(q.chap).short)+'</span>' + meta;
   if(meta) tail += '<div class="meta">'+meta+'</div>';
-  return '<article class="q"><div class="q-n">'+q.n+'</div><div class="q-body">'+
+  return '<article class="q" id="q-'+q.id+'"><div class="q-n">'+q.n+'</div><div class="q-body">'+
     '<p class="q-text">'+esc(q.q)+'</p>'+body+tail+'</div></article>';
 }
 
 function foot(){
-  return '<div class="sign"><div class="flagmark" aria-hidden="true"></div>'+
+  return '<div class="sign"><div class="sign-line"><div class="flagmark" aria-hidden="true"></div></div>'+
     '<p class="slogan">Safety first &amp; have fun</p>'+
     '<p class="by">Rainy 出品</p>'+
     '<p class="fine">题目来自 SDI 开放水域潜水员线上课程各章练习题。部分选项在截图里被播放器浮层挡住，是按上下文补全的：'+
-    '第一章 3 / 6 / 9 / 15 题，第二章 6 / 9 / 12 题，第三章 3 / 6 / 15 题，第四章 3 / 6 / 9 / 12 题。'+
+    '第一章 3 / 6 / 9 / 15 题，第二章 6 / 9 / 12 题，第三章 3 / 6 / 15 题，第四章 3 / 6 / 9 / 12 题，第五章 3 / 6 / 15 题。'+
     '手势照片裁自课件；第四章 18 题 b、c 原图被字幕挡住，换成了同一套照片的清晰版，20 题 a、b 暂用其他手势代替。'+
     (dbReady?"进度已同步，换设备打开也在。":"进度存在这台设备的浏览器里。")+'</p></div>';
+}
+
+/* 窄屏：可横滑的章节条 */
+function strip(){
+  let h = '<div class="strip" id="strip">';
+  CHAPTERS.forEach(c=>{
+    h += '<button class="sc" data-studychap="'+c.id+'" aria-pressed="'+(state.chap===c.id?"true":"false")+'">'+
+      '<span class="scn">'+c.no+'</span>'+esc(c.title)+(wrongIn(c)?'<i class="dot" aria-hidden="true"></i>':'')+'</button>';
+  });
+  return h + '</div>';
+}
+
+/* 宽屏：左侧栏 */
+function sideStudy(){
+  const cur = chapById(state.chap) || CHAPTERS[0];
+  let h = '<p class="side-lab">章节</p><nav class="chaps">';
+  CHAPTERS.forEach(c=>{
+    const w = wrongIn(c);
+    h += '<button class="chap" data-studychap="'+c.id+'" aria-current="'+(c.id===cur.id?"true":"false")+'">'+
+      '<span class="cn">'+c.no+'</span><span class="ct">'+esc(c.title)+
+      '<small>'+c.questions.length+' 题'+(w?'<b>错 '+w+'</b>':'')+'</small></span></button>';
+  });
+  h += '</nav><p class="side-lab">'+esc(cur.short)+'题号</p><div class="qidx">';
+  cur.questions.forEach(q=>{
+    h += '<a href="#q-'+q.id+'"'+(progress.wrong[q.id]>0?' class="w" title="错题"':'')+'>'+q.n+'</a>';
+  });
+  h += '</div><p class="side-note">红色题号是错题本里的题。</p>';
+  return h;
+}
+function sideWrong(){
+  let h = '<p class="side-lab">错题分布</p><nav class="chaps">';
+  CHAPTERS.forEach(c=>{
+    const w = wrongIn(c);
+    h += '<a class="chap'+(w?'':' off')+'"'+(w?' href="#w-'+c.id+'"':'')+'>'+
+      '<span class="cn">'+c.no+'</span><span class="ct">'+esc(c.title)+
+      '<small>'+(w?'<b>错 '+w+' 题</b>':'没有错题')+'</small></span></a>';
+  });
+  return h + '</nav>';
 }
 
 /* ---------- 背题 ---------- */
 function viewStudy(){
   const c = chapById(state.chap) || CHAPTERS[0];
-  let h = '<div class="pills" style="margin-bottom:1.6rem">';
-  CHAPTERS.forEach(x=>{
-    h += '<button class="pill" data-studychap="'+x.id+'" aria-pressed="'+(state.chap===x.id?"true":"false")+'">'+esc(x.short)+'</button>';
-  });
-  h += '</div>' + hero(c);
+  const nx = CHAPTERS[CHAPTERS.indexOf(c)+1];
+  let h = strip() + hero(c);
   h += '<div class="pills"><button class="pill" data-toggle="answers" aria-pressed="'+(state.showAnswers?"true":"false")+'">'+
     (state.showAnswers?"答案已显示":"答案已遮住")+'</button></div>';
   h += '<p class="hint">'+(state.showAnswers?"关掉可以逐题自测。":"点每题下面的「看答案」逐题揭晓。")+'</p>';
   h += '<div class="sheet">';
   c.questions.forEach(q=>{ h += questionCard(q, {show: state.showAnswers || !!state.revealed[q.id]}); });
-  view.innerHTML = h + '</div>' + foot();
+  h += '</div>';
+  if(nx) h += '<button class="next" data-studychap="'+nx.id+'"><span class="nl">下一章</span>'+
+    '<span class="nt"><span class="num">'+nx.no+'</span>'+esc(nx.title)+'</span></button>';
+  view.innerHTML = h + foot();
+  const st = document.getElementById("strip");
+  const on = st && st.querySelector('[aria-pressed="true"]');
+  if(on) st.scrollLeft = Math.max(0, on.offsetLeft - 20);
 }
 
 /* ---------- 刷题 ---------- */
 function scopeIds(scope){
   if(scope==="wrong") return wrongIds();
-  if(scope==="all") return ALL.map(q=>q.id);
-  const c = chapById(scope);
-  return c ? c.questions.map(q=>q.id) : [];
+  return CHAPTERS.filter(c=>scope.includes(c.id)).flatMap(c=>c.questions.map(q=>q.id));
 }
 function scopeLabel(scope){
   if(scope==="wrong") return "错题";
-  if(scope==="all") return "全部";
-  const c = chapById(scope);
-  return c ? c.short : "";
+  const cs = CHAPTERS.filter(c=>scope.includes(c.id));
+  if(cs.length===CHAPTERS.length) return "全部";
+  if(cs.length===1) return cs[0].short;
+  return "第"+cs.map(c=>c.cn).join("、")+"章";
 }
 
 function viewExam(){
@@ -638,14 +787,17 @@ function viewExam(){
 
 function examStart(){
   const wn = wrongIds().length;
+  const sel = state.scope;
+  const allOn = sel.length===CHAPTERS.length;
+  const cnt = scopeIds(sel).length;
   const last = progress.attempts.slice(-3).reverse();
-  let h = '<div class="field"><p class="lab">范围</p><div class="pills">';
+  let h = '<div class="field"><p class="lab">范围　可多选</p><div class="pills">';
   CHAPTERS.forEach(c=>{
-    h += '<button class="pill" data-scope="'+c.id+'" aria-pressed="'+(state.scope===c.id?"true":"false")+'">'+
+    h += '<button class="pill" data-scope="'+c.id+'" aria-pressed="'+(sel.includes(c.id)?"true":"false")+'">'+
       esc(c.short)+'<span class="n num">'+c.questions.length+'</span></button>';
   });
-  h += '<button class="pill" data-scope="all" aria-pressed="'+(state.scope==="all"?"true":"false")+'">全部<span class="n num">'+ALL.length+'</span></button>';
-  h += '</div></div>';
+  h += '<button class="pill" data-scope="all" aria-pressed="'+(allOn?"true":"false")+'">全部<span class="n num">'+ALL.length+'</span></button>';
+  h += '</div><p class="scope-sum">'+scopeLabel(sel)+'，共 <span class="num">'+cnt+'</span> 题</p></div>';
   h += '<div class="field"><p class="lab">顺序</p><div class="pills">'+
     '<button class="pill" data-shuffle="0" aria-pressed="'+(!state.shuffle?"true":"false")+'">按题号</button>'+
     '<button class="pill" data-shuffle="1" aria-pressed="'+(state.shuffle?"true":"false")+'">打乱</button>'+
@@ -744,7 +896,7 @@ function viewWrong(){
   CHAPTERS.forEach(c=>{
     const mine = ids.filter(id=>byId(id).chap===c.id);
     if(!mine.length) return;
-    h += '<p class="sec">'+esc(c.short)+" "+esc(c.title)+'　'+mine.length+' 题</p><div class="sheet">';
+    h += '<p class="sec" id="w-'+c.id+'">'+esc(c.short)+" "+esc(c.title)+'　'+mine.length+' 题</p><div class="sheet">';
     mine.forEach(id=>{
       h += questionCard(byId(id), {show:true,
         meta:'<span>错过 '+progress.wrong[id]+' 次</span><button data-forget="'+id+'">已掌握，移除</button>'});
@@ -758,6 +910,9 @@ function render(){
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", t.dataset.tab===state.tab ? "true":"false"));
   const wc = wrongIds().length;
   document.getElementById("wrongCount").textContent = wc ? " "+wc : "";
+  const withSide = state.tab==="study" || (state.tab==="wrong" && wc>0);
+  document.body.classList.toggle("with-side", withSide);
+  if(side) side.innerHTML = !withSide ? "" : (state.tab==="study" ? sideStudy() : sideWrong());
   if(state.tab==="study") viewStudy();
   else if(state.tab==="exam") viewExam();
   else viewWrong();
@@ -798,10 +953,24 @@ document.addEventListener("click", function(e){
   const d = t.dataset;
 
   if(d.tab){ state.tab = d.tab; render(); window.scrollTo(0,0); return; }
-  if(d.studychap){ state.chap = d.studychap; state.revealed = {}; render(); window.scrollTo(0,0); return; }
+  if(d.studychap){
+    state.chap = d.studychap; state.revealed = {};
+    if(state.tab!=="study") state.tab = "study";
+    render(); window.scrollTo(0,0); return;
+  }
   if(d.toggle==="answers"){ state.showAnswers = !state.showAnswers; state.revealed = {}; render(); return; }
   if(d.reveal){ state.revealed[d.reveal] = true; render(); return; }
-  if(d.scope){ state.scope = d.scope; render(); return; }
+  if(d.scope){
+    const allIds = CHAPTERS.map(c=>c.id);
+    if(d.scope==="all"){
+      state.scope = state.scope.length===allIds.length ? [state.chap] : allIds.slice();
+    }else{
+      const s = state.scope.slice(), k = s.indexOf(d.scope);
+      if(k>=0){ if(s.length>1) s.splice(k,1); } else s.push(d.scope);
+      state.scope = allIds.filter(id=>s.includes(id));
+    }
+    render(); return;
+  }
   if(d.shuffle){ state.shuffle = d.shuffle==="1"; render(); return; }
   if(d.start){
     const ids = scopeIds(state.scope);
