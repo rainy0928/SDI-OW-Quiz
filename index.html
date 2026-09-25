@@ -319,6 +319,73 @@ a.sc{text-decoration:none}
 @keyframes flash{0%,35%{background:var(--deep-tint)}100%{background:transparent}}
 .q.flash{animation:flash 1.9s ease;border-radius:10px}
 
+/* ===== 手机布局 ===== */
+.q-ni{display:none;font-family:Archivo,sans-serif;font-weight:600;font-size:.8rem;color:var(--ink-3);margin-right:.5rem}
+.ctl{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.ctl .hint{margin:0}
+.fb{scroll-margin-bottom:7.5rem}
+.about{margin:2rem 0 0}
+.about summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:.4rem;font-size:.74rem;color:var(--ink-3);padding:.3rem 0}
+.about summary::-webkit-details-marker{display:none}
+.about summary::after{content:"";width:.38rem;height:.38rem;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.about[open] summary::after{transform:translateY(1px) rotate(-135deg)}
+.about p{font-size:.72rem;color:var(--ink-3);line-height:1.75;margin:.5rem 0 0;text-align:left}
+.sync{font-size:.7rem;color:var(--ink-3);margin:.5rem 0 0;opacity:.85}
+.dock{display:none}
+
+@media (max-width:599px){
+  html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 1rem)}
+  .bar{position:static;background:transparent;border-bottom:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .bar-in{padding:1rem 1rem 0}
+  .tabs{display:none}
+  main{padding:1.1rem 1rem calc(6.2rem + env(safe-area-inset-bottom,0px))}
+  .strip{margin:0 -1rem 1.3rem;padding:.15rem 1rem .45rem}
+  .sc{padding:.5rem .85rem}
+  .hero{margin-bottom:1.1rem}
+  .hero .no{font-size:2.2rem}
+  .ticks{margin-top:.8rem}
+  .sheet{padding:0 1.05rem;margin-top:1rem;border-radius:12px}
+  .q{grid-template-columns:minmax(0,1fr);padding:1.3rem 0 1.35rem}
+  .q:first-child{padding-top:1.15rem}
+  .q-n{display:none}
+  .q-ni{display:inline}
+  .q-text{margin-bottom:.75rem}
+  .opt{padding:.32rem .6rem}
+  .note{padding:.6rem .75rem}
+  .pill{padding:.42rem .95rem}
+  .rel button{padding:.3rem .72rem}
+  .runbox{padding:1.15rem 1.05rem;border-radius:12px}
+  .gauge{margin-bottom:1.1rem}
+  .pick{padding:.7rem .8rem}
+  .result{padding:1.25rem;gap:1.1rem}
+  .skill{padding:1.1rem 1.1rem 1.05rem;border-radius:12px}
+  .mlist{padding:.15rem 1.05rem}
+  .scard{border-radius:12px}
+  .next{border-radius:12px}
+  .sign{margin-top:3rem}
+
+  /* 底部标签栏 */
+  .dock{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:40;
+    padding:.3rem .4rem calc(.3rem + env(safe-area-inset-bottom,0px));
+    background:var(--bar);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--hair)}
+  .dk{position:relative;display:flex;flex-direction:column;align-items:center;gap:.12rem;padding:.4rem 0 .25rem;
+    font-size:.66rem;color:var(--ink-3);letter-spacing:.02em}
+  .dk svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .dk[aria-selected="true"]{color:var(--ink);font-weight:500}
+  .dk[aria-selected="true"] svg{stroke:var(--flag)}
+  .dkc{position:absolute;top:.15rem;left:calc(50% + .35rem);min-width:1.05rem;height:1.05rem;padding:0 .28rem;border-radius:999px;
+    background:var(--flag);color:#fff;font:600 .6rem/1.05rem Archivo,sans-serif;text-align:center}
+  .dkc:empty{display:none}
+
+  /* 答题中：收起标签栏，换成固定的操作条 */
+  body.running .dock{display:none}
+  body.running main{padding-bottom:calc(6.5rem + env(safe-area-inset-bottom,0px))}
+  body.running .navrow{position:fixed;left:0;right:0;bottom:0;z-index:40;margin:0;
+    padding:.65rem 1rem calc(.65rem + env(safe-area-inset-bottom,0px));
+    background:var(--bar);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--hair)}
+  body.running .navrow .btn{padding:.72rem 1rem}
+}
+
 /* 署名 */
 .sign{margin-top:4rem;text-align:center}
 .sign-line{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem}
@@ -350,6 +417,7 @@ a.sc{text-decoration:none}
   <aside class="side" id="side" aria-label="章节导航"></aside>
   <main id="view"></main>
 </div>
+<nav class="dock" aria-label="底部导航"><button class="dk" data-tab="study" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.6c2.6-1 5.6-.9 9 1.3 3.4-2.2 6.4-2.3 9-1.3v13.3c-2.6-1-5.6-.9-9 1.3-3.4-2.2-6.4-2.3-9-1.3z"/><path d="M12 6.9v13.3"/></svg><span>背题</span></button><button class="dk" data-tab="exam" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5H20M9.5 12H20M9.5 17.5H20"/><path d="m3.6 6.4 1.3 1.3 2.4-2.6M3.6 11.9l1.3 1.3 2.4-2.6M3.6 17.4l1.3 1.3 2.4-2.6"/></svg><span>刷题</span></button><button class="dk" data-tab="wrong" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.8h11v16.6l-5.5-3.9-5.5 3.9z"/></svg><span>错题</span><b class="dkc" id="dockCount"></b></button><button class="dk" data-tab="book" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="m15.6 8.4-2.1 5.1-5.1 2.1 2.1-5.1z"/></svg><span>手册</span></button></nav>
 
 <script>
 (function(){
@@ -853,7 +921,7 @@ function cardShell(q, body, opts){
   if(opts.chapLabel) meta = '<span>'+esc(chapById(q.chap).short)+'</span>' + meta;
   if(meta) tail += '<div class="meta">'+meta+'</div>';
   return '<article class="q" id="q-'+q.id+'"><div class="q-n">'+q.n+'</div><div class="q-body">'+
-    '<p class="q-text">'+esc(q.q)+'</p>'+body+tail+'</div></article>';
+    '<p class="q-text"><span class="q-ni">'+q.n+'</span>'+esc(q.q)+'</p>'+body+tail+'</div></article>';
 }
 
 function relChips(ids){
@@ -868,10 +936,10 @@ function foot(){
   return '<div class="sign"><div class="sign-line"><div class="flagmark" aria-hidden="true"></div></div>'+
     '<p class="slogan">Safety first &amp; have fun</p>'+
     '<p class="by">Rainy 出品</p>'+
-    '<p class="fine">题目来自 SDI 开放水域潜水员线上课程各章练习题。部分选项在截图里被播放器浮层挡住，是按上下文补全的：'+
+    '<details class="about"><summary>题目来源与补全说明</summary><p>题目来自 SDI 开放水域潜水员线上课程各章练习题。部分选项在截图里被播放器浮层挡住，是按上下文补全的：'+
     '第一章 3 / 6 / 9 / 15 题，第二章 6 / 9 / 12 题，第三章 3 / 6 / 15 题，第四章 3 / 6 / 9 / 12 题，第五章 3 / 6 / 15 题。'+
-    '手势照片裁自课件；第四章 18 题 b、c 原图被字幕挡住，换成了同一套照片的清晰版，20 题 a、b 暂用其他手势代替。'+
-    (dbReady?"进度已同步，换设备打开也在。":"进度存在这台设备的浏览器里。")+'</p></div>';
+    '手势照片裁自课件；第四章 18 题 b、c 原图被字幕挡住，换成了同一套照片的清晰版，20 题 a、b 暂用其他手势代替。</p></details>'+
+    '<p class="sync">'+(dbReady?"进度已同步，换设备打开也在":"进度存在这台设备的浏览器里")+'</p></div>';
 }
 
 /* 窄屏：可横滑的章节条 */
@@ -931,9 +999,9 @@ function viewStudy(){
   const c = chapById(state.chap) || CHAPTERS[0];
   const nx = CHAPTERS[CHAPTERS.indexOf(c)+1];
   let h = strip() + hero(c.no, c.title, c.questions.length+" 题");
-  h += '<div class="pills"><button class="pill" data-toggle="answers" aria-pressed="'+(state.showAnswers?"true":"false")+'">'+
-    (state.showAnswers?"答案已显示":"答案已遮住")+'</button></div>';
-  h += '<p class="hint">'+(state.showAnswers?"关掉可以逐题自测。":"点每题下面的「看答案」逐题揭晓。")+'</p>';
+  h += '<div class="ctl"><button class="pill" data-toggle="answers" aria-pressed="'+(state.showAnswers?"true":"false")+'">'+
+    (state.showAnswers?"答案已显示":"答案已遮住")+'</button><span class="hint">'+
+    (state.showAnswers?"关掉可以逐题自测":"点每题下面的「看答案」揭晓")+'</span></div>';
   h += '<div class="sheet">';
   c.questions.forEach(q=>{ h += questionCard(q, {show: state.showAnswers || !!state.revealed[q.id]}); });
   h += '</div>';
@@ -1155,9 +1223,11 @@ function viewWrong(){
 }
 
 function render(){
-  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", t.dataset.tab===state.tab ? "true":"false"));
+  document.querySelectorAll(".tab,.dk").forEach(t=>t.setAttribute("aria-selected", t.dataset.tab===state.tab ? "true":"false"));
   const wc = wrongIds().length;
   document.getElementById("wrongCount").textContent = wc ? " "+wc : "";
+  const dc = document.getElementById("dockCount"); if(dc) dc.textContent = wc ? (wc>99 ? "99+" : String(wc)) : "";
+  document.body.classList.toggle("running", state.tab==="exam" && !!state.exam && !state.exam.done);
   const withSide = state.tab==="study" || state.tab==="book" || (state.tab==="wrong" && wc>0);
   document.body.classList.toggle("with-side", withSide);
   if(side) side.innerHTML = !withSide ? "" :
@@ -1261,8 +1331,8 @@ document.addEventListener("click", function(e){
       if(i===q.a){ if(progress.wrong[qid]) delete progress.wrong[qid]; }
       else progress.wrong[qid] = (progress.wrong[qid]||0)+1;
       save();
-      const nav = document.getElementById("navrow");
-      if(nav && nav.scrollIntoView) nav.scrollIntoView({block:"nearest"});
+      const fbEl = document.querySelector(".fb");
+      if(fbEl && fbEl.scrollIntoView) fbEl.scrollIntoView({block:"nearest"});
       return;
     }
     ex.picks[qid] = i;
