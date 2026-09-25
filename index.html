@@ -319,6 +319,41 @@ a.sc{text-decoration:none}
 @keyframes flash{0%,35%{background:var(--deep-tint)}100%{background:transparent}}
 .q.flash{animation:flash 1.9s ease;border-radius:10px}
 
+/* 装备连接图 */
+.eq{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);padding:1.2rem 1.3rem 1.3rem}
+.eq-fig{margin:.9rem 0 0}
+.eq svg{display:block;width:100%;max-width:30rem;height:auto;margin:0 auto}
+.eq .st{fill:var(--hair-2);stroke:var(--ink-3);stroke-width:.8}
+.eq .bx{fill:var(--panel);stroke:var(--ink-3);stroke-width:.8}
+.eq .rib{stroke:var(--ink-3);stroke-width:.6}
+.eq .hp{fill:var(--flag-tint);stroke:var(--flag);stroke-width:1}
+.eq .mp{fill:var(--deep-tint);stroke:var(--deep);stroke-width:1}
+.eq .pb{fill:none;stroke:var(--deep);stroke-width:1}
+.eq .nd{stroke:var(--flag);stroke-width:1.6;stroke-linecap:round}
+.eq .nc{fill:var(--flag)}
+.eq .h-hp{fill:none;stroke:var(--flag);stroke-width:3.2;stroke-linecap:round}
+.eq .h-mp{fill:none;stroke:var(--deep);stroke-width:3.2;stroke-linecap:round}
+.eq .lb{font-size:18px;font-weight:500;fill:var(--ink)}
+.eq .lbs{font-size:15px;fill:var(--ink-3)}
+.eq .ld{stroke:var(--ink-3);stroke-width:.8;stroke-dasharray:3 3}
+.eq .bg{stroke:var(--panel);stroke-width:2}
+.eq .bg.b{fill:var(--deep)}
+.eq .bg.s{fill:var(--flag)}
+.eq .bn{font:600 13px Archivo,sans-serif;fill:var(--panel)}
+.eq[data-mode="build"] .m-strip,.eq[data-mode="strip"] .m-build{display:none}
+.eq-lg{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem 1.3rem;margin:.7rem 0 0;font-size:.78rem;color:var(--ink-3)}
+.eq-lg span{display:inline-flex;align-items:center;gap:.45rem}
+.eq-lg i{display:inline-block;width:1.4rem;height:3px;border-radius:2px}
+.eq-lg i.lg-hp{background:var(--flag)}
+.eq-lg i.lg-mp{background:var(--deep)}
+.eq-steps{margin-top:1.3rem}
+.eq-steps b{font-weight:600;margin-right:.5rem;color:var(--ink)}
+.eq-steps span{color:var(--ink-2)}
+.eq-steps.m-build li::before{color:var(--deep)}
+.eq-tip{margin:1.1rem 0 0;padding:.75rem .9rem;border-radius:10px;background:var(--hair-2);font-size:.84rem;color:var(--ink-2);line-height:1.8}
+.eqlink{display:inline-block;margin-top:.9rem;font-size:.82rem;color:var(--deep);border-bottom:1px solid currentColor;padding-bottom:1px}
+@media (max-width:599px){.eq{padding:1rem .9rem 1.1rem;border-radius:12px}}
+
 /* ===== 手机布局 ===== */
 .q-ni{display:none;font-family:Archivo,sans-serif;font-weight:600;font-size:.8rem;color:var(--ink-3);margin-right:.5rem}
 .ctl{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
@@ -619,7 +654,7 @@ const CHAPTERS = [{
      note:"流线型收纳的三个理由：好找、不缠绕、不刮到珊瑚。跟沟通没关系。"},
     {q:"将水肺装备组装过程按正确顺序排列的是？",
      o:["气瓶检查 → 安装浮力控制装置 → 组装呼吸调节器 → 连接低压软管 → 打开气瓶阀门","气瓶检查 → 安装浮力控制装置 → 连接低压软管 → 组装呼吸调节器 → 打开气瓶阀门","气瓶检查 → 打开气瓶阀门 → 安装浮力控制装置 → 组装呼吸调节器 → 连接低压软管","气瓶检查 → 组装呼吸调节器 → 安装浮力控制装置 → 连接低压软管 → 打开气瓶阀门"],a:0,
-     note:"查瓶 → 装 BCD → 装调节器 → 接低压管 → 开阀。开阀永远是最后一步：管路全接好了才通气。"},
+     note:"查瓶 → 装 BCD → 装调节器 → 接低压管 → 开阀。低压管是从一级头上长出来的，一级头装上气瓶之后才能接；开阀永远是最后一步，管路全接好了才通气。手册里有装备连接图。"},
     {q:"不属于常规入水方法的是？",
      o:["跨步式入水法（giant stride entry）","有控制坐式入水法（controlled seated entry）","背滚式入水法（back roll entry）","前滚式入水法（front roll entry）"],a:3,
      note:"常规三种：跨步式（大船、平台）、坐式（岸边、池边）、背滚式（小船）。没有前滚式。"},
@@ -643,7 +678,7 @@ const CHAPTERS = [{
      note:"取下调节器时要持续吐小泡泡，不憋气，也不能把肺吐空——肺里留着气，才能用呼气法排水。"},
     {q:"将水肺装备拆卸过程按正确顺序排列的是哪一项？",
      o:["关闭气瓶阀门 → 分离低压软管 → 分离呼吸调节器 → 分离浮力控制装置 → 按压排气按钮","关闭气瓶阀门 → 按压排气按钮 → 分离低压软管 → 分离呼吸调节器 → 分离浮力控制装置","关闭气瓶阀门 → 分离低压软管 → 分离呼吸调节器 → 按压排气按钮 → 分离浮力控制装置","关闭气瓶阀门 → 按压排气按钮 → 分离浮力控制装置 → 分离低压软管 → 分离呼吸调节器"],a:1,
-     note:"关阀 → 按排气钮放掉管里的余压 → 拆低压管 → 拆调节器 → 拆 BCD。管路里还有压力时，接头根本拔不下来。"},
+     note:"就是组装倒过来，只是关阀之后多一步放气：关阀 → 按排气钮放掉管里的余压 → 拆低压管 → 拆调节器 → 拆 BCD。管路里还有压力时，接头根本拔不下来。"},
     {q:"下列关于面镜排水技巧的描述中，不恰当的是哪一项？",
      o:["用鼻子往里吹气","最后抬起头","缓慢且持续地吹气","如果面镜带有排水阀，就不需要进行排水了"],a:3,
      note:"带排水阀的面镜照样要做排水动作：按住上缘、用鼻子缓慢持续吹气、最后抬头，只是水改从阀里出去。"},
@@ -764,7 +799,7 @@ const SKILLS = [
  {id:"p1", t:"潜水前", items:[
   {t:"装备组装", why:"组错一步，下水后就可能漏气或者气瓶滑脱。",
    steps:["检查气瓶：压力够不够，阀门和 O 型圈有没有问题","BCD 套上气瓶，绑带扣牢，BCD 上缘和气瓶阀门齐平","装一级头：二级头朝右边，卡箍用手指拧紧就好","接上低压充气管","最后慢慢打开气瓶阀门，看残压表，两个二级头都试吸一下"],
-   miss:["卡箍用蛮力拧死","管子还没接好就先开阀"], rel:["ch4-1","ch4-2","ch4-4"]},
+   miss:["卡箍用蛮力拧死","管子还没接好就先开阀"], eq:"build", rel:["ch4-1","ch4-2","ch4-4"]},
   {t:"潜伴互检", why:"下水前最后一道关，两个人互相看一遍。",
    steps:["BCD：充气、放气都正常","配重：戴好了，快卸扣能一下拉开","各处卡扣都扣好","气：阀门全开，残压够，两个二级头都能正常吸","最后整体看一遍：面镜、脚蹼、电脑表开机"],
    miss:["只检查自己，不看潜伴","潜水计划拖到下水前才定——应该早就定好"], rel:["ch4-8","ch5-2","ch5-7"]},
@@ -814,8 +849,26 @@ const SKILLS = [
    miss:["上升时憋气","以为用了电脑表就不用安全停留"], rel:["ch5-14","ch5-13","ch5-15"]},
   {t:"拆卸与保养", why:"顺序反了，接头根本拔不下来。",
    steps:["关闭气瓶阀门","按排气按钮，放掉管路里的余压","拆低压充气管，再拆调节器，最后拆 BCD","所有装备用清水冲洗；BCD 里灌点清水涮一涮再倒干净","潜水服挂起来，在阴凉处晾干"],
-   miss:["没放余压就硬拆","潜水服折起来存放，或者拿去暴晒"], rel:["ch4-12","ch3-7","ch3-19"]}
+   miss:["没放余压就硬拆","潜水服折起来存放，或者拿去暴晒"], eq:"strip", rel:["ch4-12","ch3-7","ch3-19"]}
  ]}
+];
+
+
+/* ================= 手册：装备连接 ================= */
+const EQ_SVG = '<svg viewBox="0 0 440 420" role="img" aria-labelledby="eqT eqD"><title id="eqT">水肺装备连接示意图</title><desc id="eqD">气瓶顶部阀门上装一级头。一级头伸出四根管：低压充气管接 BCD 充气阀，两根中压管接主二级头和备用二级头，一根高压管接残压表。BCD 用绑带箍住气瓶。</desc><rect class="st" x="40" y="170" width="64" height="210" rx="18"/><text class="lb" x="72" y="272" text-anchor="middle" dominant-baseline="central">BCD</text><text class="lbs" x="72" y="296" text-anchor="middle" dominant-baseline="central">背心</text><rect class="st" x="50" y="112" width="14" height="58" rx="3"/><line class="rib" x1="50" y1="124" x2="64" y2="124"/><line class="rib" x1="50" y1="136" x2="64" y2="136"/><line class="rib" x1="50" y1="148" x2="64" y2="148"/><line class="rib" x1="50" y1="160" x2="64" y2="160"/><rect class="st" x="44" y="90" width="26" height="22" rx="5"/><text class="lbs" x="42" y="72" text-anchor="middle" dominant-baseline="central">充气阀</text><rect class="st" x="122" y="150" width="64" height="250" rx="26"/><text class="lb" x="154" y="345" text-anchor="middle" dominant-baseline="central">气瓶</text><rect class="bx" x="100" y="205" width="90" height="10" rx="3"/><rect class="bx" x="100" y="300" width="90" height="10" rx="3"/><rect class="st" x="142" y="132" width="24" height="20"/><rect class="st" x="132" y="110" width="44" height="22" rx="4"/><circle class="st" cx="124" cy="121" r="8"/><text class="lbs" x="112" y="146" text-anchor="end" dominant-baseline="central">阀门</text><path class="h-mp" d="M195 102 C191 46 88 46 72 96"/><path class="h-mp" d="M214 114 C240 100 258 100 272 108"/><path class="h-mp" d="M214 128 C240 150 252 184 272 192"/><path class="h-hp" d="M198 136 C204 214 240 262 270 276"/><rect class="hp" x="176" y="102" width="38" height="34" rx="7"/><text class="lb" x="136" y="28" text-anchor="middle" dominant-baseline="central">低压充气管</text><text class="lb" x="228" y="62" dominant-baseline="central">一级头</text><line class="ld" x1="236" y1="76" x2="212" y2="101"/><circle class="mp" cx="287" cy="110" r="15"/><circle class="pb" cx="287" cy="110" r="6.5"/><circle class="mp" cx="287" cy="194" r="15"/><circle class="pb" cx="287" cy="194" r="6.5"/><circle class="hp" cx="288" cy="280" r="18"/><line class="nd" x1="288" y1="280" x2="296" y2="267"/><circle class="nc" cx="288" cy="280" r="2"/><text class="lb" x="316" y="110" dominant-baseline="central">主二级头</text><text class="lb" x="316" y="194" dominant-baseline="central">备用二级头</text><text class="lb" x="318" y="280" dominant-baseline="central">残压表</text><g class="m-build"><circle class="bg b" cx="154" cy="257" r="12"/><text class="bn" x="154" y="257" text-anchor="middle" dominant-baseline="central">1</text><circle class="bg b" cx="72" cy="228" r="12"/><text class="bn" x="72" y="228" text-anchor="middle" dominant-baseline="central">2</text><circle class="bg b" cx="195" cy="119" r="12"/><text class="bn" x="195" y="119" text-anchor="middle" dominant-baseline="central">3</text><circle class="bg b" cx="136" cy="60" r="12"/><text class="bn" x="136" y="60" text-anchor="middle" dominant-baseline="central">4</text><circle class="bg b" cx="154" cy="121" r="12"/><text class="bn" x="154" y="121" text-anchor="middle" dominant-baseline="central">5</text></g><g class="m-strip"><circle class="bg s" cx="154" cy="121" r="12"/><text class="bn" x="154" y="121" text-anchor="middle" dominant-baseline="central">1</text><circle class="bg s" cx="287" cy="110" r="12"/><text class="bn" x="287" y="110" text-anchor="middle" dominant-baseline="central">2</text><circle class="bg s" cx="136" cy="60" r="12"/><text class="bn" x="136" y="60" text-anchor="middle" dominant-baseline="central">3</text><circle class="bg s" cx="195" cy="119" r="12"/><text class="bn" x="195" y="119" text-anchor="middle" dominant-baseline="central">4</text><circle class="bg s" cx="72" cy="228" r="12"/><text class="bn" x="72" y="228" text-anchor="middle" dominant-baseline="central">5</text></g></svg>';
+const EQ_BUILD = [
+  ["检查气瓶","压力够不够，阀门和 O 型圈有没有问题"],
+  ["装 BCD","绑带箍住气瓶，BCD 上缘和阀门齐平"],
+  ["装一级头","卡在阀门出气口上，二级头朝右，卡箍用手指拧紧"],
+  ["接低压充气管","从一级头接到 BCD 的充气阀"],
+  ["打开阀门","管路全接好了才通气；看残压表，两个二级头都试吸一下"]
+];
+const EQ_STRIP = [
+  ["关闭阀门","先断气源"],
+  ["按排气按钮","按主二级头正面的按钮，放掉管里憋着的气，残压表归零"],
+  ["拔低压充气管","先断开调节器和 BCD 之间唯一的连接"],
+  ["卸一级头","拧松卡箍取下，擦干后盖好防尘盖"],
+  ["卸 BCD","松开绑带，从气瓶上取下来"]
 ];
 
 /* ================= 进度 ================= */
@@ -870,7 +923,7 @@ async function initSync(){
 }
 
 /* ================= 状态 ================= */
-const state = {tab:"study", chap:"ch1", showAnswers:true, revealed:{}, exam:null, scope:["ch1"], shuffle:false, mode:"instant"};
+const state = {tab:"study", chap:"ch1", showAnswers:true, revealed:{}, exam:null, scope:["ch1"], shuffle:false, mode:"instant", eqMode:"build"};
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const wrongIds = () => ALL.filter(q=>progress.wrong[q.id]>0).map(q=>q.id);
 const wrongIn = c => c.questions.filter(q=>progress.wrong[q.id]>0).length;
@@ -980,7 +1033,9 @@ function sideWrong(){
   return h + '</nav>';
 }
 function sideBook(){
-  let h = '<p class="side-lab">手势信号</p><nav class="chaps">';
+  let h = '<p class="side-lab">装备</p><nav class="chaps">'+
+    '<a class="chap" href="#b-eq"><span class="cn">01</span><span class="ct">装备怎么连<small>组装顺序、拆卸顺序</small></span></a></nav>';
+  h += '<p class="side-lab">手势信号</p><nav class="chaps">';
   SIG_GROUPS.forEach((g,i)=>{
     h += '<a class="chap" href="#b-'+g.id+'"><span class="cn">0'+(i+1)+'</span><span class="ct">'+esc(g.t)+
       '<small>'+g.items.map(x=>SIG[x.k].m).join("、")+'</small></span></a>';
@@ -1015,10 +1070,26 @@ function viewStudy(){
 
 /* ---------- 手册 ---------- */
 function viewBook(){
+  const stepList = (arr, cls) => '<ol class="steps eq-steps '+cls+'">'+arr.map(x=>'<li><span><b>'+esc(x[0])+'</b>'+esc(x[1])+'</span></li>').join("")+'</ol>';
   let h = '<div class="strip">'+
+    '<a class="sc" href="#b-eq">装备连接</a>'+
     '<a class="sc" href="#b-sig">手势信号</a>'+
     SKILLS.map((p,i)=>'<a class="sc" href="#b-'+p.id+'"><span class="scn">0'+(i+1)+'</span>'+esc(p.t)+'</a>').join("")+
     '</div>';
+  h += '<section class="bk-sec" id="b-eq"><h2 class="bk-h">装备怎么连</h2>'+
+    '<p class="bk-sub">所有管子都从一级头上长出来，一级头装在气瓶的阀门上。看懂这张图，组装和拆卸的顺序就不用死记。</p>'+
+    '<div class="eq" id="eq" data-mode="'+state.eqMode+'">'+
+      '<div class="pills eq-sw">'+
+        '<button class="pill" data-eqmode="build" aria-pressed="'+(state.eqMode==="build"?"true":"false")+'">组装顺序</button>'+
+        '<button class="pill" data-eqmode="strip" aria-pressed="'+(state.eqMode==="strip"?"true":"false")+'">拆卸顺序</button>'+
+      '</div>'+
+      '<div class="eq-fig">'+EQ_SVG+'</div>'+
+      '<div class="eq-lg"><span><i class="lg-hp"></i>高压（约 200 bar）</span><span><i class="lg-mp"></i>中压（一级头降压后）</span></div>'+
+      stepList(EQ_BUILD, "m-build") + stepList(EQ_STRIP, "m-strip")+
+      '<p class="eq-tip">拆卸就是组装倒过来，只是关阀之后多了一步放气。口诀：先断气，再放气；先拔管，再卸头；背心最后走。'+
+      '另外记两点：把高压降成中压的是一级头，不是二级头；残压表接在一级头的高压口上。备用二级头通常是黄色的。</p>'+
+      relChips(["ch4-4","ch4-12","ch4-1","ch3-12","ch3-16"])+
+    '</div></section>';
   h += '<section class="bk-sec" id="b-sig"><h2 class="bk-h">手势信号</h2>'+
     '<p class="bk-sub">课件练习题里出现的 9 个手势，按用途分成三组。点「相关题」可以直接跳到题库里的那道题。</p>';
   let n = 0;
@@ -1046,6 +1117,7 @@ function viewBook(){
         '<p class="why">'+esc(s.why)+'</p>'+
         '<ol class="steps">'+s.steps.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ol>'+
         '<div class="miss"><b>易错</b><ul>'+s.miss.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul></div>'+
+        (s.eq ? '<button class="eqlink" data-eqjump="'+s.eq+'">对照装备连接图</button>' : '')+
         relChips(s.rel)+'</article>';
     });
     h += '</div>';
@@ -1282,7 +1354,7 @@ function finishInstant(){
 }
 
 document.addEventListener("click", function(e){
-  const t = e.target.closest("[data-tab],[data-studychap],[data-toggle],[data-reveal],[data-scope],[data-shuffle],[data-mode],[data-start],[data-pick],[data-nav],[data-submit],[data-finish],[data-quit],[data-again],[data-wrongrun],[data-clearall],[data-forget],[data-goto]");
+  const t = e.target.closest("[data-tab],[data-studychap],[data-toggle],[data-reveal],[data-scope],[data-shuffle],[data-mode],[data-start],[data-pick],[data-nav],[data-submit],[data-finish],[data-quit],[data-again],[data-wrongrun],[data-clearall],[data-forget],[data-goto],[data-eqmode],[data-eqjump]");
   if(!t) return;
   const d = t.dataset;
 
@@ -1300,6 +1372,17 @@ document.addEventListener("click", function(e){
     if(el){
       el.scrollIntoView({block:"start"});
       el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"), 1900);
+    }
+    return;
+  }
+  if(d.eqmode || d.eqjump){
+    const m = (d.eqmode || d.eqjump)==="strip" ? "strip" : "build";
+    state.eqMode = m;
+    const eq = document.getElementById("eq");
+    if(eq){
+      eq.dataset.mode = m;
+      eq.querySelectorAll("[data-eqmode]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.eqmode===m ? "true":"false"));
+      if(d.eqjump){ const sec = document.getElementById("b-eq"); if(sec) sec.scrollIntoView({block:"start"}); }
     }
     return;
   }
