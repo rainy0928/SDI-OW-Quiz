@@ -248,6 +248,77 @@ main{max-width:44rem;margin:0 auto;padding:1.8rem 1.3rem 4rem}
 .next .nt .num{color:var(--flag);font-weight:600;margin-right:.45rem}
 .scope-sum{font-size:.8rem;color:var(--ink-3);margin:.75rem 0 0}
 
+/* 即判反馈 */
+.pick.is-right{border-color:var(--deep);background:var(--deep-tint);color:var(--ink)}
+.pick.is-right .k{color:var(--deep)}
+.pick.is-wrong{border-color:var(--flag);background:var(--flag-tint);color:var(--ink)}
+.pick.is-wrong .k{color:var(--flag)}
+.pick[disabled],.tile[disabled]{cursor:default}
+.tile.pk.is-right{box-shadow:0 0 0 3px var(--deep)}
+.tile.pk.is-right .bd{background:var(--deep);color:#fff}
+.tile.pk.is-wrong{box-shadow:0 0 0 3px var(--flag)}
+.tile.pk.is-wrong .bd{background:var(--flag);color:#fff}
+.fb{margin-top:1.2rem;padding:1rem 0 0 .9rem;border-top:1px solid var(--hair-2);position:relative}
+.fb::before{content:"";position:absolute;left:0;top:1.1rem;bottom:.2rem;width:2px;border-radius:2px;background:var(--deep)}
+.fb.ng::before{background:var(--flag)}
+.fb-v{margin:0 0 .35rem;font-weight:600;font-size:.95rem;color:var(--deep)}
+.fb.ng .fb-v{color:var(--flag)}
+.fb-n{margin:0;font-size:.88rem;color:var(--ink-2);line-height:1.8}
+.tally{font-size:.76rem;color:var(--ink-3);white-space:nowrap}
+.tally b{font-family:Archivo,sans-serif;font-weight:600;color:var(--deep);margin:0 .5rem 0 .2rem}
+.tally b.ng{color:var(--flag);margin-right:0}
+
+/* 手册 */
+a.sc{text-decoration:none}
+.bk-sec{margin-bottom:3.4rem}
+.bk-h{font-size:1.4rem;font-weight:600;margin:0 0 .35rem;letter-spacing:.01em}
+.bk-sub{font-size:.84rem;color:var(--ink-3);margin:0 0 1.2rem;line-height:1.75;max-width:36rem}
+.grp{font-size:.78rem;color:var(--ink-3);letter-spacing:.06em;margin:1.9rem 0 .75rem}
+.sgrid{display:grid;grid-template-columns:1fr;gap:.7rem}
+.scard{display:grid;grid-template-columns:6.8rem minmax(0,1fr);gap:.95rem;align-items:start;
+  background:var(--panel);border-radius:14px;box-shadow:var(--shadow);padding:.7rem}
+.scard .ph{position:relative;border-radius:9px;overflow:hidden}
+.scard .ph img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.ph .bd{position:absolute;transform:translate(-50%,-50%);width:22%;aspect-ratio:1/1;border-radius:50%;
+  background:rgba(255,255,255,.94);color:#132128;display:flex;align-items:center;justify-content:center;
+  font-family:Archivo,sans-serif;font-weight:600;font-size:.74rem;line-height:1;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.scard .tx{padding:.2rem .2rem 0 0;min-width:0}
+.scard .m{font-size:1.02rem;font-weight:600;color:var(--ink);margin:0}
+.scard .d{font-size:.78rem;color:var(--ink-3);margin:.1rem 0 .5rem}
+.scard .tp{font-size:.84rem;color:var(--ink-2);line-height:1.7;margin:0}
+@media (min-width:600px){
+  .sgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .scard{display:block;padding:0;overflow:hidden}
+  .scard .ph{border-radius:0}
+  .scard .tx{padding:.85rem .95rem 1rem}
+}
+.rel{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin-top:.75rem}
+.rel span{font-size:.72rem;color:var(--ink-3);margin-right:.15rem}
+.rel button{font-family:Archivo,sans-serif;font-size:.74rem;font-weight:500;color:var(--deep);
+  padding:.14rem .55rem;border-radius:999px;background:var(--deep-tint)}
+.mlist{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);padding:.15rem 1.25rem}
+.mrow{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:.8rem;padding:.8rem 0;border-top:1px solid var(--hair-2);font-size:.88rem}
+.mrow:first-child{border-top:none}
+.mrow b{font-weight:600;color:var(--ink)}
+.mrow span{color:var(--ink-2)}
+.mnote{font-size:.76rem;color:var(--ink-3);margin:.7rem 0 0}
+.skills{display:grid;gap:.8rem;margin-bottom:2.8rem}
+.skill{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);padding:1.2rem 1.3rem 1.15rem}
+.skill h3{margin:0;font-size:1.04rem;font-weight:600;display:flex;align-items:center;gap:.6rem}
+.skill .tag{font-size:.68rem;font-weight:400;color:var(--ink-3);border:1px solid var(--hair);border-radius:999px;padding:.02rem .55rem}
+.skill .why{margin:.3rem 0 1rem;font-size:.84rem;color:var(--ink-3);line-height:1.7}
+.steps{list-style:none;counter-reset:st;margin:0;padding:0;display:grid;gap:.55rem}
+.steps li{counter-increment:st;display:grid;grid-template-columns:1.5rem minmax(0,1fr);gap:.3rem;font-size:.92rem;line-height:1.7;color:var(--ink)}
+.steps li::before{content:counter(st);font-family:Archivo,sans-serif;font-weight:600;font-size:.8rem;color:var(--flag);padding-top:.16rem}
+.miss{margin-top:1rem;padding:.7rem .9rem;border-radius:10px;background:var(--flag-tint)}
+.miss b{display:block;font-size:.74rem;color:var(--flag);font-weight:600;margin-bottom:.25rem;letter-spacing:.06em}
+.miss ul{margin:0;padding:0;list-style:none}
+.miss li{font-size:.84rem;color:var(--ink-2);line-height:1.7;padding-left:.95rem;position:relative}
+.miss li::before{content:"";position:absolute;left:0;top:.85em;width:.45rem;height:1.5px;border-radius:1px;background:var(--flag)}
+@media (min-width:600px){.tile .bd,.ph .bd{font-size:.95rem}}
+@keyframes flash{0%,35%{background:var(--deep-tint)}100%{background:transparent}}
+.q.flash{animation:flash 1.9s ease;border-radius:10px}
+
 /* 署名 */
 .sign{margin-top:4rem;text-align:center}
 .sign-line{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem}
@@ -270,6 +341,7 @@ main{max-width:44rem;margin:0 auto;padding:1.8rem 1.3rem 4rem}
       <button class="tab" role="tab" data-tab="study" aria-selected="true">背题</button>
       <button class="tab" role="tab" data-tab="exam" aria-selected="false">刷题</button>
       <button class="tab" role="tab" data-tab="wrong" aria-selected="false">错题<b id="wrongCount"></b></button>
+      <button class="tab" role="tab" data-tab="book" aria-selected="false">手册</button>
     </nav>
   </div>
 </header>
@@ -593,6 +665,91 @@ const byId = id => ALL.find(q=>q.id===id);
 const chapById = id => CHAPTERS.find(c=>c.id===id);
 const KEYS = ["a","b","c","d","e"];
 
+/* ================= 手册：手势 ================= */
+const SIG_GROUPS = [
+  {id:"g1", t:"基本沟通", items:[
+    {k:"ok",    tip:"问和答都用它。水面上离得远时，改成双手在头顶合成一个大 O。", rel:["ch4-18"]},
+    {k:"flat",  tip:"先打「有问题」，再指向出问题的地方，比如耳朵。", rel:["ch4-19"]},
+    {k:"buddy", tip:"提醒对方跟紧，或者约好一起行动。", rel:["ch4-20"]}
+  ]},
+  {id:"g2", t:"下潜与耳压", items:[
+    {k:"thumb", tip:"拇指朝上才是上升。水下竖大拇指不是「好」，别比错。", rel:["ch4-17"]},
+    {k:"nose",  tip:"这是在做平衡的动作本身，不是求救信号。", rel:["ch4-19"]},
+    {k:"ear",   tip:"平衡不了就往上一点再试，别硬往下潜。", rel:["ch4-19","ch2-6"]}
+  ]},
+  {id:"g3", t:"空气与身体", items:[
+    {k:"fist",   tip:"快到储备压力了，准备和潜伴一起结束这一潜。", rel:["ch4-15"]},
+    {k:"throat", tip:"最紧急的信号。看到它，要马上把备用二级头递过去。", rel:["ch4-15"]},
+    {k:"cold",   tip:"失温会让判断变差，冷了就提前结束。", rel:["ch4-16"]}
+  ]}
+];
+const SIG_MORE = [
+  {m:"上升",   d:"拇指朝上"},
+  {m:"停下",   d:"手掌立起，掌心朝向对方"},
+  {m:"慢一点", d:"手掌朝下，缓缓往下压"},
+  {m:"看",     d:"两指先指自己的眼睛，再指向要看的东西"},
+  {m:"头晕",   d:"食指在头侧画圈"}
+];
+
+/* ================= 手册：技巧 ================= */
+const SKILLS = [
+ {id:"p1", t:"潜水前", items:[
+  {t:"装备组装", why:"组错一步，下水后就可能漏气或者气瓶滑脱。",
+   steps:["检查气瓶：压力够不够，阀门和 O 型圈有没有问题","BCD 套上气瓶，绑带扣牢，BCD 上缘和气瓶阀门齐平","装一级头：二级头朝右边，卡箍用手指拧紧就好","接上低压充气管","最后慢慢打开气瓶阀门，看残压表，两个二级头都试吸一下"],
+   miss:["卡箍用蛮力拧死","管子还没接好就先开阀"], rel:["ch4-1","ch4-2","ch4-4"]},
+  {t:"潜伴互检", why:"下水前最后一道关，两个人互相看一遍。",
+   steps:["BCD：充气、放气都正常","配重：戴好了，快卸扣能一下拉开","各处卡扣都扣好","气：阀门全开，残压够，两个二级头都能正常吸","最后整体看一遍：面镜、脚蹼、电脑表开机"],
+   miss:["只检查自己，不看潜伴","潜水计划拖到下水前才定——应该早就定好"], rel:["ch4-8","ch5-2","ch5-7"]},
+  {t:"配重检查", why:"配重对了，下潜和悬停都省力。",
+   steps:["在能站稳或抓住东西的地方做","BCD 完全放气，正常吸一口气，放松别动","水面刚好在眼睛高度就对了","呼气后应该会慢慢往下沉"],
+   miss:["一下就沉下去：配重太多","呼完气还沉不下去：配重太少","去海里要比淡水多带一点"], rel:["ch4-7","ch3-13"]}
+ ]},
+ {id:"p2", t:"入水与下潜", items:[
+  {t:"三种入水", why:"看船和岸的情况选。入水前 BCD 先充点气，下去能浮在水面。",
+   steps:["跨步式：大船或平台用。一手按住面镜和调节器，一大步跨出去，眼睛看前方","有控制坐式：岸边、池边用。坐在边上，转身慢慢滑进水里","背滚式：小船用。按住面镜，低头，向后翻滚入水——入水那一下会短暂晕方向"],
+   miss:["没有「前滚式」这种入水法","有浪的地方别拿着脚蹼正面迎浪走：咬好调节器、压低重心、侧身或背对浪"], rel:["ch4-5","ch4-6","ch4-10"]},
+  {t:"五步下潜", why:"按顺序来，下潜就不会手忙脚乱。",
+   steps:["向潜伴发出下潜信号","确认前进方向","换上呼吸调节器","下潜：一边慢慢放掉 BCD 里的气","边下边平衡耳压，到深度后调成中性浮力"],
+   miss:["方向没对好就往下","等耳朵疼了才开始平衡"], rel:["ch4-9"]},
+  {t:"耳压平衡", why:"耳朵受伤是新手最常见的问题。",
+   steps:["一开始下潜就做，之后勤做","方法：捏住鼻子轻轻鼓气，或者吞咽、动一动下巴","平衡不了：往上一点，压差变小再试","上升时耳朵排不了气（反向挤压）：停下，稍微往下一点，再慢慢升"],
+   miss:["用力硬鼓气","平衡不了还硬往下潜","感冒鼻塞还下水"], rel:["ch2-5","ch2-6","ch2-8","ch2-7"]}
+ ]},
+ {id:"p3", t:"水下基本功", items:[
+  {t:"调节器排水", why:"调节器离开嘴再放回来，里面会进水。",
+   steps:["调节器离开嘴的时候，一直吐小泡泡","放回嘴里后二选一：用肺里留着的气用力「呼」一口，或者按下二级头的排气按钮","排完先小口吸，里面可能还有残水"],
+   miss:["先把肺里的气吐光，再取出调节器","调节器离开嘴时憋气"], rel:["ch4-11"]},
+  {t:"找回调节器", tag:"题库外", why:"调节器被碰掉时，要能自己找回来。",
+   steps:["一边持续吐小泡泡","身体微微右倾，右臂从臀部往后、往外划一大圈","软管会挂在手臂上，顺着摸到二级头","放回嘴里，排水后再呼吸"],
+   miss:["找的时候憋气","一慌直接往上冲"], rel:[]},
+  {t:"面镜排水", why:"面镜进水是常事，会排就不慌。",
+   steps:["按住面镜上框","用鼻子缓慢、持续地往面镜里吹气","边吹边慢慢抬头，水从下缘排出去","下潜时面镜吸脸（面镜挤压），也是用鼻子往里吹一点气"],
+   miss:["以为带排水阀的面镜不用做这个动作","吹得太猛太短，水排不干净"], rel:["ch4-13","ch2-7"]},
+  {t:"中性浮力", why:"不上不下地悬停：不踢底、不碰珊瑚，还省气。",
+   steps:["BCD 每次只充一小口气，等几秒看反应","用呼吸微调：吸气会慢慢上浮，呼气会慢慢下沉","找到不上不下的状态，放松，少踢水"],
+   miss:["一次充太多气，冲上去再拼命放气","拿正浮力当中性浮力"], rel:["ch5-8"]}
+ ]},
+ {id:"p4", t:"应急处理", items:[
+  {t:"空气耗尽", why:"按顺序处理，第一步永远是别慌。",
+   steps:["还剩一点气：跟潜伴一起正常上升","没气了：打「没气了」手势，用潜伴的备用二级头，一起正常上升","潜伴不在、离水面也不远：紧急游泳上升——调节器咬着，一直吐气发出「啊——」，抬头看水面，一手举高护着头，别冲太快"],
+   miss:["紧急游泳上升时吐掉调节器","憋着气往上冲"], rel:["ch5-5","ch4-15","ch2-10"]},
+  {t:"跟潜伴走散", why:"潜前就该约定好走散了怎么办。",
+   steps:["停下，原地转着观察四周（课件：3 分钟）","找不到就各自慢慢上升","到水面会合"],
+   miss:["自己接着潜","直接紧急上升"], rel:["ch5-3"]},
+  {t:"腿抽筋", why:"水下抽筋很常见，处理对了几十秒就缓过来。",
+   steps:["停下别慌，打手势让潜伴知道","抓住抽筋那只脚的脚蹼尖，往自己身上拉，把小腿拉开","缓过来后放慢踢水节奏"],
+   miss:["紧急上浮","硬撑着继续踢"], rel:["ch4-14"]}
+ ]},
+ {id:"p5", t:"上升与收尾", items:[
+  {t:"上升与安全停留", why:"升得太快，是减压病和肺部受伤的主要原因。",
+   steps:["打上升手势（拇指朝上），确认潜伴跟上","一手举高握住低压充气管，BCD 的气随时排","按电脑表提示的速度慢慢升，全程正常呼吸","5 米左右停 3 分钟，做安全停留","快到水面时抬头看、转一圈；出水后给 BCD 充气"],
+   miss:["上升时憋气","以为用了电脑表就不用安全停留"], rel:["ch5-14","ch5-13","ch5-15"]},
+  {t:"拆卸与保养", why:"顺序反了，接头根本拔不下来。",
+   steps:["关闭气瓶阀门","按排气按钮，放掉管路里的余压","拆低压充气管，再拆调节器，最后拆 BCD","所有装备用清水冲洗；BCD 里灌点清水涮一涮再倒干净","潜水服挂起来，在阴凉处晾干"],
+   miss:["没放余压就硬拆","潜水服折起来存放，或者拿去暴晒"], rel:["ch4-12","ch3-7","ch3-19"]}
+ ]}
+];
+
 /* ================= 进度 ================= */
 const LS = "sdi-ow-progress-v1";
 const progress = {wrong:{}, attempts:[]};
@@ -645,7 +802,7 @@ async function initSync(){
 }
 
 /* ================= 状态 ================= */
-const state = {tab:"study", chap:"ch1", showAnswers:true, revealed:{}, exam:null, scope:["ch1"], shuffle:false};
+const state = {tab:"study", chap:"ch1", showAnswers:true, revealed:{}, exam:null, scope:["ch1"], shuffle:false, mode:"instant"};
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const wrongIds = () => ALL.filter(q=>progress.wrong[q.id]>0).map(q=>q.id);
 const wrongIn = c => c.questions.filter(q=>progress.wrong[q.id]>0).length;
@@ -653,21 +810,22 @@ const view = document.getElementById("view");
 const side = document.getElementById("side");
 
 /* ================= 片段 ================= */
-function hero(c, extra){
-  return '<div class="hero"><div class="hero-row"><span class="no num">'+c.no+'</span>'+
-    '<span class="tt">'+esc(c.title)+'</span>'+
-    '<span class="ct num">'+(extra||(c.questions.length+" 题"))+'</span></div>'+
+function hero(no, title, extra, id){
+  return '<div class="hero"'+(id?' id="'+id+'"':'')+'><div class="hero-row"><span class="no num">'+no+'</span>'+
+    '<span class="tt">'+esc(title)+'</span>'+
+    '<span class="ct num">'+extra+'</span></div>'+
     '<div class="ticks" aria-hidden="true"></div></div>';
 }
 
-function tileHTML(q, i, cls, show, pick, pressed){
+function tileHTML(q, i, o){
   const s = SIG[q.sig[i]];
   const bd = '<span class="bd" style="left:'+s.bx+'%;top:'+s.by+'%">'+KEYS[i]+'</span>';
-  const alt = show ? KEYS[i]+"："+s.m : "选项 "+KEYS[i];
+  const alt = o.show ? KEYS[i]+"："+s.m : "选项 "+KEYS[i];
   const img = '<img src="'+s.src+'" alt="'+esc(alt)+'">';
-  if(pick) return '<button class="tile pk" data-pick="'+i+'" aria-pressed="'+(pressed?"true":"false")+'">'+img+bd+'</button>';
-  const cap = show ? '<span class="cap"><b>'+esc(s.m)+'</b><i>'+esc(s.d)+'</i></span>' : '';
-  return '<div class="tile '+cls+'">'+img+bd+cap+'</div>';
+  const cap = o.show ? '<span class="cap"><b>'+esc(s.m)+'</b><i>'+esc(s.d)+'</i></span>' : '';
+  if(o.pick) return '<button class="tile pk '+(o.cls||'')+'" data-pick="'+i+'" aria-pressed="'+(o.pressed?"true":"false")+'"'+
+    (o.locked?' disabled':'')+'>'+img+bd+cap+'</button>';
+  return '<div class="tile '+(o.cls||'')+'">'+img+bd+cap+'</div>';
 }
 
 function questionCard(q, opts){
@@ -677,7 +835,7 @@ function questionCard(q, opts){
     : (show && opts.picked!=null && i===opts.picked && i!==q.a) ? "is-wrong" : "";
   if(q.sig){
     let t = "";
-    for(let i=0;i<q.sig.length;i++) t += tileHTML(q, i, clsOf(i), show, false);
+    for(let i=0;i<q.sig.length;i++) t += tileHTML(q, i, {cls:clsOf(i), show:show});
     return cardShell(q, '<div class="sig">'+t+'</div>', opts);
   }
   let lis = "";
@@ -696,6 +854,14 @@ function cardShell(q, body, opts){
   if(meta) tail += '<div class="meta">'+meta+'</div>';
   return '<article class="q" id="q-'+q.id+'"><div class="q-n">'+q.n+'</div><div class="q-body">'+
     '<p class="q-text">'+esc(q.q)+'</p>'+body+tail+'</div></article>';
+}
+
+function relChips(ids){
+  if(!ids || !ids.length) return "";
+  return '<div class="rel"><span>相关题</span>'+ids.map(id=>{
+    const q = byId(id); if(!q) return "";
+    return '<button data-goto="'+id+'">'+chapById(q.chap).no.replace(/^0/,"")+'-'+q.n+'</button>';
+  }).join("")+'</div>';
 }
 
 function foot(){
@@ -745,12 +911,26 @@ function sideWrong(){
   });
   return h + '</nav>';
 }
+function sideBook(){
+  let h = '<p class="side-lab">手势信号</p><nav class="chaps">';
+  SIG_GROUPS.forEach((g,i)=>{
+    h += '<a class="chap" href="#b-'+g.id+'"><span class="cn">0'+(i+1)+'</span><span class="ct">'+esc(g.t)+
+      '<small>'+g.items.map(x=>SIG[x.k].m).join("、")+'</small></span></a>';
+  });
+  h += '<a class="chap" href="#b-more"><span class="cn">+</span><span class="ct">其他常用手势<small>'+SIG_MORE.map(x=>x.m).join("、")+'</small></span></a>';
+  h += '</nav><p class="side-lab">潜水技巧</p><nav class="chaps">';
+  SKILLS.forEach((p,i)=>{
+    h += '<a class="chap" href="#b-'+p.id+'"><span class="cn">0'+(i+1)+'</span><span class="ct">'+esc(p.t)+
+      '<small>'+p.items.map(s=>s.t).join("、")+'</small></span></a>';
+  });
+  return h + '</nav>';
+}
 
 /* ---------- 背题 ---------- */
 function viewStudy(){
   const c = chapById(state.chap) || CHAPTERS[0];
   const nx = CHAPTERS[CHAPTERS.indexOf(c)+1];
-  let h = strip() + hero(c);
+  let h = strip() + hero(c.no, c.title, c.questions.length+" 题");
   h += '<div class="pills"><button class="pill" data-toggle="answers" aria-pressed="'+(state.showAnswers?"true":"false")+'">'+
     (state.showAnswers?"答案已显示":"答案已遮住")+'</button></div>';
   h += '<p class="hint">'+(state.showAnswers?"关掉可以逐题自测。":"点每题下面的「看答案」逐题揭晓。")+'</p>';
@@ -763,6 +943,47 @@ function viewStudy(){
   const st = document.getElementById("strip");
   const on = st && st.querySelector('[aria-pressed="true"]');
   if(on) st.scrollLeft = Math.max(0, on.offsetLeft - 20);
+}
+
+/* ---------- 手册 ---------- */
+function viewBook(){
+  let h = '<div class="strip">'+
+    '<a class="sc" href="#b-sig">手势信号</a>'+
+    SKILLS.map((p,i)=>'<a class="sc" href="#b-'+p.id+'"><span class="scn">0'+(i+1)+'</span>'+esc(p.t)+'</a>').join("")+
+    '</div>';
+  h += '<section class="bk-sec" id="b-sig"><h2 class="bk-h">手势信号</h2>'+
+    '<p class="bk-sub">课件练习题里出现的 9 个手势，按用途分成三组。点「相关题」可以直接跳到题库里的那道题。</p>';
+  let n = 0;
+  SIG_GROUPS.forEach(g=>{
+    h += '<p class="grp" id="b-'+g.id+'">'+esc(g.t)+'</p><div class="sgrid">';
+    g.items.forEach(it=>{
+      n++; const s = SIG[it.k];
+      h += '<article class="scard"><div class="ph"><img src="'+s.src+'" alt="'+esc(s.m+"："+s.d)+'">'+
+        '<span class="bd" style="left:'+s.bx+'%;top:'+s.by+'%">'+n+'</span></div>'+
+        '<div class="tx"><p class="m">'+esc(s.m)+'</p><p class="d">'+esc(s.d)+'</p>'+
+        '<p class="tp">'+esc(it.tip)+'</p>'+relChips(it.rel)+'</div></article>';
+    });
+    h += '</div>';
+  });
+  h += '<p class="grp" id="b-more">其他常用手势</p><div class="mlist">';
+  SIG_MORE.forEach(x=>{ h += '<div class="mrow"><b>'+esc(x.m)+'</b><span>'+esc(x.d)+'</span></div>'; });
+  h += '</div><p class="mnote">这几个课件练习题里没出现，是开放水域常用的手势，以教练教的为准。</p></section>';
+
+  h += '<section class="bk-sec" id="b-skill"><h2 class="bk-h">潜水技巧</h2>'+
+    '<p class="bk-sub">按一次潜水的流程整理，步骤和易错点都对应题库里的考点。标了「题库外」的是开放水域课程常练、但题目没考到的。具体动作以教练现场教的为准。</p>';
+  SKILLS.forEach((p,pi)=>{
+    h += hero("0"+(pi+1), p.t, p.items.length+" 项", "b-"+p.id) + '<div class="skills">';
+    p.items.forEach(s=>{
+      h += '<article class="skill"><h3>'+esc(s.t)+(s.tag?'<span class="tag">'+esc(s.tag)+'</span>':'')+'</h3>'+
+        '<p class="why">'+esc(s.why)+'</p>'+
+        '<ol class="steps">'+s.steps.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ol>'+
+        '<div class="miss"><b>易错</b><ul>'+s.miss.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul></div>'+
+        relChips(s.rel)+'</article>';
+    });
+    h += '</div>';
+  });
+  h += '</section>';
+  view.innerHTML = h + foot();
 }
 
 /* ---------- 刷题 ---------- */
@@ -802,7 +1023,13 @@ function examStart(){
     '<button class="pill" data-shuffle="0" aria-pressed="'+(!state.shuffle?"true":"false")+'">按题号</button>'+
     '<button class="pill" data-shuffle="1" aria-pressed="'+(state.shuffle?"true":"false")+'">打乱</button>'+
     '</div></div>';
-  h += '<p class="hint" style="margin-top:0">答完整轮才判分，做错的题会自动进错题本。</p>';
+  h += '<div class="field"><p class="lab">判分</p><div class="pills">'+
+    '<button class="pill" data-mode="instant" aria-pressed="'+(state.mode==="instant"?"true":"false")+'">每题即判</button>'+
+    '<button class="pill" data-mode="exam" aria-pressed="'+(state.mode==="exam"?"true":"false")+'">交卷再判</button>'+
+    '</div></div>';
+  h += '<p class="hint" style="margin-top:0">'+(state.mode==="instant"
+    ? "每答一题马上告诉你对错，解析直接展开；错的当场进错题本，中途可以随时结束看成绩。"
+    : "模拟考试：整轮答完才判分，做错的题交卷后进错题本。")+'</p>';
   h += '<div class="btns"><button class="btn flag" data-start="1">开始答题</button>'+
     '<button class="btn ghost" data-wrongrun="1"'+(wn?"":" disabled")+'>只练错题 '+wn+'</button></div>';
   if(last.length){
@@ -819,47 +1046,68 @@ function examStart(){
 function examRun(){
   const ex = state.exam;
   const q = byId(ex.ids[ex.idx]);
+  const instant = ex.mode==="instant";
+  const picked = ex.picks[q.id];
+  const answered = picked!=null;
+  const fb = instant && answered;
+  const done = Object.keys(ex.picks).length;
+  const right = ex.ids.filter(id=>ex.picks[id]!=null && ex.picks[id]===byId(id).a).length;
   const pct = Math.round(ex.idx/ex.ids.length*100);
   let h = '<div class="gauge"><span class="pos">'+(ex.idx+1)+' <i>/ '+ex.ids.length+'</i></span>'+
-    '<span class="track"><i style="width:'+pct+'%"></i></span></div>';
+    '<span class="track"><i style="width:'+pct+'%"></i></span>'+
+    (instant && done ? '<span class="tally">对<b>'+right+'</b>错<b class="ng">'+(done-right)+'</b></span>' : '')+'</div>';
   h += '<div class="runbox"><p class="runq"><span class="rn">'+
     (ex.mixed ? esc(chapById(q.chap).short)+" " : "")+q.n+'</span>'+esc(q.q)+'</p>';
+  const clsOf = i => !fb ? "" : (i===q.a ? "is-right" : (i===picked ? "is-wrong" : ""));
   if(q.sig){
     h += '<div class="sig run">';
-    for(let i=0;i<q.sig.length;i++) h += tileHTML(q, i, "", false, true, ex.picks[q.id]===i);
+    for(let i=0;i<q.sig.length;i++) h += tileHTML(q, i, {pick:true, pressed:picked===i, locked:fb, cls:clsOf(i), show:fb});
     h += '</div>';
   }else{
     for(let i=0;i<q.o.length;i++){
-      h += '<button class="pick" data-pick="'+i+'" aria-pressed="'+(ex.picks[q.id]===i?"true":"false")+'">'+
+      h += '<button class="pick '+clsOf(i)+'" data-pick="'+i+'" aria-pressed="'+(picked===i?"true":"false")+'"'+(fb?' disabled':'')+'>'+
         '<span class="k">'+KEYS[i]+'</span><span>'+esc(q.o[i])+'</span></button>';
     }
   }
+  if(fb){
+    const ok = picked===q.a;
+    h += '<div class="fb '+(ok?'ok':'ng')+'"><p class="fb-v">'+(ok?'答对了':'答错了，正确答案是 '+KEYS[q.a])+'</p>'+
+      '<p class="fb-n">'+esc(q.note)+'</p></div>';
+  }
   h += '</div>';
   const isLast = ex.idx === ex.ids.length-1;
-  const answered = Object.keys(ex.picks).length;
-  h += '<div class="navrow">'+
-    '<button class="btn ghost" data-nav="-1"'+(ex.idx===0?" disabled":"")+'>上一题</button>'+
-    (isLast
-      ? '<button class="btn flag" data-submit="1"'+(answered<ex.ids.length?" disabled":"")+'>交卷</button>'
-      : '<button class="btn" data-nav="1">下一题</button>')+
-    '</div>';
-  if(isLast && answered<ex.ids.length){
-    h += '<p class="hint">还有 '+(ex.ids.length-answered)+' 题没选，回去补完就能交卷。</p>';
+  h += '<div class="navrow" id="navrow"><button class="btn ghost" data-nav="-1"'+(ex.idx===0?" disabled":"")+'>上一题</button>';
+  if(instant){
+    h += isLast
+      ? '<button class="btn flag" data-finish="1"'+(done?'':' disabled')+'>看结果</button>'
+      : '<button class="btn '+(answered?'flag':'ghost')+'" data-nav="1">'+(answered?'下一题':'跳过')+'</button>';
+  }else{
+    h += isLast
+      ? '<button class="btn flag" data-submit="1"'+(done<ex.ids.length?" disabled":"")+'>交卷</button>'
+      : '<button class="btn" data-nav="1">下一题</button>';
   }
-  h += '<div class="btns"><button class="btn ghost" data-quit="1">退出本轮</button></div>';
+  h += '</div>';
+  if(!instant && isLast && done<ex.ids.length){
+    h += '<p class="hint">还有 '+(ex.ids.length-done)+' 题没选，回去补完就能交卷。</p>';
+  }
+  h += '<div class="btns">'+(instant && done
+    ? '<button class="btn ghost" data-finish="1">结束本轮，看成绩</button>'
+    : '<button class="btn ghost" data-quit="1">退出本轮</button>')+'</div>';
   view.innerHTML = h;
 }
 
 function examResult(){
   const ex = state.exam;
-  const wrong = ex.ids.filter(id=>ex.picks[id]!==byId(id).a);
-  const correct = ex.ids.length - wrong.length;
-  const rate = Math.round(correct/ex.ids.length*100);
+  const pool = ex.ids.filter(id=>ex.picks[id]!=null);
+  const wrong = pool.filter(id=>ex.picks[id]!==byId(id).a);
+  const correct = pool.length - wrong.length;
+  const rate = pool.length ? Math.round(correct/pool.length*100) : 0;
   const C = 326.7, off = (C*(1-rate/100)).toFixed(1);
   let verdict;
   if(rate===100) verdict = "全对。这一轮可以过了。";
   else if(rate>=80) verdict = "达标线附近了，把下面几题的原理弄明白再刷一轮。";
   else verdict = "先回背题模式过一遍，重点看错的那几条原理。";
+  const partial = pool.length<ex.ids.length ? '<p class="cnt">这一轮共 '+ex.ids.length+' 题，答了 '+pool.length+' 题</p>' : '';
 
   let h = '<div class="result"><div class="ring">'+
     '<svg viewBox="0 0 120 120" aria-hidden="true">'+
@@ -867,7 +1115,7 @@ function examResult(){
     '<circle cx="60" cy="60" r="52" fill="none" stroke="var(--flag)" stroke-width="7" stroke-linecap="round" '+
     'stroke-dasharray="'+C+'" stroke-dashoffset="'+off+'"/></svg>'+
     '<span class="val">'+rate+'<sub>%</sub></span></div>'+
-    '<div class="rtext"><p class="cnt">'+correct+' / '+ex.ids.length+' 题正确</p>'+
+    '<div class="rtext"><p class="cnt">'+correct+' / '+pool.length+' 题正确</p>'+partial+
     '<p class="verdict">'+verdict+'</p></div></div>'+
     '<div class="btns"><button class="btn" data-again="same">再刷一轮</button>'+
     (wrong.length?'<button class="btn ghost" data-again="wrong">只练这轮错题</button>':'')+
@@ -910,24 +1158,34 @@ function render(){
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", t.dataset.tab===state.tab ? "true":"false"));
   const wc = wrongIds().length;
   document.getElementById("wrongCount").textContent = wc ? " "+wc : "";
-  const withSide = state.tab==="study" || (state.tab==="wrong" && wc>0);
+  const withSide = state.tab==="study" || state.tab==="book" || (state.tab==="wrong" && wc>0);
   document.body.classList.toggle("with-side", withSide);
-  if(side) side.innerHTML = !withSide ? "" : (state.tab==="study" ? sideStudy() : sideWrong());
+  if(side) side.innerHTML = !withSide ? "" :
+    state.tab==="study" ? sideStudy() : state.tab==="book" ? sideBook() : sideWrong();
   if(state.tab==="study") viewStudy();
   else if(state.tab==="exam") viewExam();
+  else if(state.tab==="book") viewBook();
   else viewWrong();
 }
 
 /* ================= 交互 ================= */
-function startExam(ids, label){
+function startExam(ids, label, mode){
   const list = ids.slice();
   if(state.shuffle){ for(let i=list.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=list[i]; list[i]=list[j]; list[j]=t; } }
   const chaps = {};
   list.forEach(id=>{ chaps[byId(id).chap] = 1; });
-  state.exam = {ids:list, idx:0, picks:{}, done:false, label:label, mixed:Object.keys(chaps).length>1};
+  state.exam = {ids:list, idx:0, picks:{}, done:false, label:label, mode:mode||state.mode, mixed:Object.keys(chaps).length>1};
   state.tab = "exam";
   render();
   window.scrollTo(0,0);
+}
+
+function logAttempt(correct, total, label){
+  const d = new Date();
+  progress.attempts.push({
+    correct:correct, total:total, label:label||"",
+    when:(d.getMonth()+1)+"月"+d.getDate()+"日 "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")
+  });
 }
 
 function submitExam(){
@@ -938,17 +1196,23 @@ function submitExam(){
     if(ex.picks[id]===byId(id).a){ correct++; if(progress.wrong[id]) delete progress.wrong[id]; }
     else progress.wrong[id] = (progress.wrong[id]||0)+1;
   });
-  const d = new Date();
-  progress.attempts.push({
-    correct:correct, total:ex.ids.length, label:ex.label||"",
-    when:(d.getMonth()+1)+"月"+d.getDate()+"日 "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")
-  });
+  logAttempt(correct, ex.ids.length, ex.label);
+  save();
+  window.scrollTo(0,0);
+}
+
+function finishInstant(){
+  const ex = state.exam;
+  const pool = ex.ids.filter(id=>ex.picks[id]!=null);
+  if(!pool.length) return;
+  ex.done = true;
+  logAttempt(pool.filter(id=>ex.picks[id]===byId(id).a).length, pool.length, ex.label);
   save();
   window.scrollTo(0,0);
 }
 
 document.addEventListener("click", function(e){
-  const t = e.target.closest("[data-tab],[data-studychap],[data-toggle],[data-reveal],[data-scope],[data-shuffle],[data-start],[data-pick],[data-nav],[data-submit],[data-quit],[data-again],[data-wrongrun],[data-clearall],[data-forget]");
+  const t = e.target.closest("[data-tab],[data-studychap],[data-toggle],[data-reveal],[data-scope],[data-shuffle],[data-mode],[data-start],[data-pick],[data-nav],[data-submit],[data-finish],[data-quit],[data-again],[data-wrongrun],[data-clearall],[data-forget],[data-goto]");
   if(!t) return;
   const d = t.dataset;
 
@@ -957,6 +1221,17 @@ document.addEventListener("click", function(e){
     state.chap = d.studychap; state.revealed = {};
     if(state.tab!=="study") state.tab = "study";
     render(); window.scrollTo(0,0); return;
+  }
+  if(d.goto){
+    const q = byId(d.goto); if(!q) return;
+    state.tab = "study"; state.chap = q.chap; state.revealed = {};
+    render();
+    const el = document.getElementById("q-"+q.id);
+    if(el){
+      el.scrollIntoView({block:"start"});
+      el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"), 1900);
+    }
+    return;
   }
   if(d.toggle==="answers"){ state.showAnswers = !state.showAnswers; state.revealed = {}; render(); return; }
   if(d.reveal){ state.revealed[d.reveal] = true; render(); return; }
@@ -972,14 +1247,25 @@ document.addEventListener("click", function(e){
     render(); return;
   }
   if(d.shuffle){ state.shuffle = d.shuffle==="1"; render(); return; }
+  if(d.mode){ state.mode = d.mode==="exam" ? "exam" : "instant"; render(); return; }
   if(d.start){
     const ids = scopeIds(state.scope);
-    if(ids.length) startExam(ids, scopeLabel(state.scope));
+    if(ids.length) startExam(ids, scopeLabel(state.scope), state.mode);
     return;
   }
   if(d.pick!=null && state.exam && !state.exam.done){
-    const ex = state.exam;
-    ex.picks[ex.ids[ex.idx]] = Number(d.pick);
+    const ex = state.exam, qid = ex.ids[ex.idx], q = byId(qid), i = Number(d.pick);
+    if(ex.mode==="instant"){
+      if(ex.picks[qid]!=null) return;
+      ex.picks[qid] = i;
+      if(i===q.a){ if(progress.wrong[qid]) delete progress.wrong[qid]; }
+      else progress.wrong[qid] = (progress.wrong[qid]||0)+1;
+      save();
+      const nav = document.getElementById("navrow");
+      if(nav && nav.scrollIntoView) nav.scrollIntoView({block:"nearest"});
+      return;
+    }
+    ex.picks[qid] = i;
     if(ex.idx < ex.ids.length-1){ ex.idx++; window.scrollTo(0,0); }
     render(); return;
   }
@@ -988,14 +1274,19 @@ document.addEventListener("click", function(e){
     render(); window.scrollTo(0,0); return;
   }
   if(d.submit){ submitExam(); return; }
+  if(d.finish){ finishInstant(); return; }
   if(d.quit){ state.exam = null; render(); window.scrollTo(0,0); return; }
   if(d.again){
+    const ex = state.exam;
     if(d.again==="back"){ state.exam = null; render(); }
-    else if(d.again==="same"){ startExam(state.exam.ids, state.exam.label); }
-    else { const w = wrongIds(); if(w.length) startExam(w, "错题"); }
+    else if(d.again==="same"){ startExam(ex.ids, ex.label, ex.mode); }
+    else {
+      const w = ex.ids.filter(id=>ex.picks[id]!=null && ex.picks[id]!==byId(id).a);
+      if(w.length) startExam(w, "错题", ex.mode);
+    }
     window.scrollTo(0,0); return;
   }
-  if(d.wrongrun){ const w = wrongIds(); if(w.length) startExam(w, "错题"); return; }
+  if(d.wrongrun){ const w = wrongIds(); if(w.length) startExam(w, "错题", state.mode); return; }
   if(d.clearall){ progress.wrong = {}; save(); return; }
   if(d.forget){ delete progress.wrong[d.forget]; save(); return; }
 });
